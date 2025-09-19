@@ -17,3 +17,8 @@ Route::get("/Inicio", function(){
 Route::get("/Login", function(){
     return view('Login');
 });
+
+use App\Http\Controllers\MateriaController;
+
+Route::get('/', [MateriaController::class, 'index']);
+Route::post('/materias', [MateriaController::class, 'store'])->name('materias.store');

@@ -1,81 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asesorías</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asesorías</title>
 
-  {{-- Estilos locales --}}
-  <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
-  {{-- Google Fonts & Iconos --}}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" />
+<!-- Bootstrap y estilos -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
 
-<header>
-  <div id="logo">
-    <img src="{{ asset('img/tec.jpg') }}" alt="Logo">
-  </div>
+<header class="position-relative">
+    <div id="logo">
+        <img src="{{ asset('img/tec.jpg') }}" alt="Logo">
+    </div>
 
-  <nav>
-    <ul>
-      <li><h1>Asesorías Académicas</h1></li>
-      <li><a href="#" class="activado">Inicio</a></li>
-      <li class="dropdown">
-        <a href="#">Materias</a>
-        <ul class="submenu">
-          <li><a href="#" onclick="abrirModal()">➕ Nueva Materia</a></li>
-          <?php
-          $conexion = new mysqli("localhost", "root", "", "asesorias");
-          if ($conexion->connect_error) {
-              die("Error de conexión: " . $conexion->connect_error);
-          }
-          $result = $conexion->query("SELECT * FROM materias ORDER BY nombre ASC");
-          while ($row = $result->fetch_assoc()) {
-              echo '<li>';
-              echo '<a href="login.php?materia_id=' . (int)$row['id'] . '">' . htmlspecialchars($row['nombre']) . '</a>';
-              echo '</li>';
-          }
-          $conexion->close();
-          ?>
-        </ul>
-      </li>
-      <li><a href="#">Salir</a></li>
-    </ul>
-  </nav>
+    <div class="bg-purple text-white py-3 shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="m-0 fs-4">Asesorías Académicas</h1>
+
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Materias</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="dropdown-item" onclick="abrirModal()">➕ Nueva Materia</a></li>
+                            @foreach($materias as $materia)
+                                <li>
+                                    <a class="dropdown-item" href="{{ url('login.php?materia_id=' . $materia->id) }}">
+                                        {{ $materia->nombre }} ({{ $materia->codigo_materia }})
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </header>
 
-<!-- Sección Principal -->
-<section class="main">
-  <video muted autoplay loop src="{{ asset('img/tec.mp4') }}"></video>
-</section>
+<main>
+    <video muted autoplay loop src="{{ asset('img/tec.mp4') }}" class="w-100 vh-100 object-fit-cover"></video>
+</main>
 
 <!-- Modal Nueva Materia -->
-<div id="modalMateria" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarModal()"><i class="bi bi-x-circle"></i></span>
-    <h2>Nueva Materia</h2>
-    <form id="formNuevaMateria">
-      <input type="text" name="nombre" placeholder="Nombre de la materia" required>
-      <button type="submit">Guardar</button>
-    </form>
+<div class="modal fade" id="modalMateria" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Nueva Materia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formNuevaMateria">
+          @csrf
+          <input type="text" name="nombre" placeholder="Nombre de la materia" class="form-control mb-2" required>
+          <button type="submit" class="btn btn-primary w-100">Guardar</button>
+        </form>
+        <div id="mensaje" class="mt-2 text-success"></div>
+      </div>
+    </div>
   </div>
 </div>
 
-{{-- Scripts locales --}}
-<script src="{{ asset('js/nuevaMateria.js') }}"></script>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-  function eliminarAsesoria(boton) {
-    const item = boton.parentElement;
-    item.remove();
-  }
+    const urlMateriasStore = "{{ route('materias.store') }}";
 </script>
-
+<script src="{{ asset('js/nuevaMateria.js') }}"></script>
 </body>
 </html>

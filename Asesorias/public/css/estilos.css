@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+/* Header */
+header h1 {
+    margin: 0;
+    font-size: 1.8rem; /* Título más compacto */
+}
+
+header nav ul.nav {
+    margin-top: 0.5rem;
+}
+
+/* Usuario */
+.user-container img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+/* Menú lateral */
+#menu .card {
+    margin-top: 1rem;
+    background-color: #711092;
+    color: white;
+    padding: 0.5rem;
+    
+}
+
+#menu .btn-group button {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+}
+
+#menu .dropdown-menu {
+    background-color: #541469;
+}
+
+/* Contenido principal */
+main h1, main h5 {
+    margin-top: 0.9rem;
+}
+
+main p {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Imágenes */
+main .row img {
+    margin-top: 0.5rem;
+}
+.titulo-header {
+  font-family: 'Arial', sans-serif; /* Cambiar fuente */
+  font-size: 36px; /* Cambiar tamaño */
+  font-weight: 700; /* Equivalente a fw-bold */
+  color: white;
+}

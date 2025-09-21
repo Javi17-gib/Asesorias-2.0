@@ -23,68 +23,10 @@ body{
     background-size: cover;
     background-position: center;
 }
-header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 70px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 100px;
-    z-index: 99;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .5);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-     
-}
-.logo{
-    color: var(--color-fondo);
-    font-size: 30px;
-    user-select: none;
-    cursor: pointer;   
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    font-weight: bold;
-}
-.logo i{
-    vertical-align: middle;
-    color: blue;
-    font-size: 27px;
-    margin-right: 5px;
-}
-.navegacion a{
-   position: relative;
-    font-size: 1.1rem;
-    color: #f8f9fa;
-    text-decoration: none;
-    font-weight: 500;
-    margin-left: 40px; 
-}
-.navegacion a::after{
-    content: "";
-    position: absolute;
-    width: 100;
-    bottom: -6px;
-    left: 0;
-    height: 2px;
-    background: #f8f9fa;
-    transform: scale(0);
-    transform-origin: right;
-    transition: transform .5s;
-}
-.navegacion a:hover{
-    transform: scaleX(1);
-    transform-origin: left;
-    color: blue;
-}
 .fondo{
     position: relative;
     width: 400px;
-    height: 440px;
+    height: 500px; /* un poco más alto para nivel */
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
@@ -95,63 +37,10 @@ header{
     align-items: center;
     overflow: hidden;
     transition: transform .5s ease height .2s ease;
-    
-    
-}
-label{
-    color: white;
-}
-p{
-    color: white;
-}
-a{
-    color: blue;
-}
-.fondo.active-btn{
-    transform: scale(1);
-}
-.fondo.active{
-    height: 455px;
 }
 .fondo .contenedor-form{
     width: 100%;
     padding: 40px;
-}
-.fondo .contenedor-form.login{
-    transition: .17s ease;
-    transform: translateX(0);
-}
-.fondo.active .contenedor-form.login{
-    transition: none;
-    transform: translateX(-400px);
-}
-.fondo .contenedor-form.registrar{
-    position: absolute;
-    transition: none;
-    transform: translateX(400px);
-}
-
-.fondo.active .contenedor-form.registrar{
-    transition: transform .17s ease ;
-    transform: translateX(0);
-    
-}
-.fondo .icono-cerrar{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 45px;
-    height: 45px;
-    background-color: #090f1d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom-left-radius: 20px;
-    cursor: pointer;
-    z-index: 1;
-    font-size: 1.8rem;
-    color: white;
-    text-decoration: none;
 }
 .contenedor-form h2{
     font-size: 2em;
@@ -163,7 +52,7 @@ a{
     width: 100%;
     height: 50px;
     border-bottom: 2px solid white;
-    margin: 30px 0;
+    margin: 20px 0;
 }
 .contenedor-input label{
     position: absolute;
@@ -177,10 +66,13 @@ a{
     color: #f8f9fa;
 }
 .contenedor-input input:focus~label,
-.contenedor-input input:valid~label{
+.contenedor-input input:valid~label,
+.contenedor-input select:focus~label,
+.contenedor-input select:valid~label{
     top: -5px;
 }
-.contenedor-input input{
+.contenedor-input input,
+.contenedor-input select{
     width: 100%;
     height: 100%;
     background: transparent;
@@ -199,7 +91,6 @@ a{
 }
 .recordar{
     font-size: .8em;
-    margin: -15px,0 15px;
     display: flex;
     justify-content: space-between;
     font-weight: 600;
@@ -211,7 +102,6 @@ a{
 }
 .recordar a{
     text-decoration: none;
-    margin-bottom: 10px;
 }
 .recordar a:hover{
     text-decoration: underline;
@@ -233,13 +123,19 @@ a{
     font-size: .9em;
     color: #f8f9fa;
     text-align: center;
-    margin: 25px, 10px;
-}
-.registrar p{
-    color: #f8f9fa;
-    text-decoration: none;
+    margin: 25px 0;
 }
 .registrar p a:hover{
     text-decoration: underline;
 }
 
+/* Estilo para select de nivel */
+.contenedor-input select{
+    color: #f8f9fa;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 5px;
+    padding-left: 5px;
+}
+.contenedor-input select option{
+    color: #000; /* texto de opciones negro para legibilidad */
+}

@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 *{
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 :root{
     --color-texto: #011627;
     --color-fondo: #f8f9fa;
@@ -14,6 +16,7 @@
     --fuente-grande: 3.0rem;
     --fuente-p: 1rem;
 }
+
 body{
     display: flex;
     justify-content: center;
@@ -23,10 +26,11 @@ body{
     background-size: cover;
     background-position: center;
 }
-.fondo{
+
+.fondo {
     position: relative;
     width: 400px;
-    height: 500px; /* un poco más alto para nivel */
+    min-height: 500px; /* subimos un poco la altura */
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
@@ -34,19 +38,45 @@ body{
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: transform .5s ease height .2s ease;
+    align-items: flex-start; /* para que los formularios queden más arriba */
+    overflow: visible; /* cambiar de hidden a visible */
+    transition: transform .5s ease, height .2s ease;
+    padding-top: 20px; /* un poco de espacio arriba */
 }
+.contenedor-form {
+    width: 90%;
+    padding: 20px 40px;
+}
+
+/* Formularios */
 .fondo .contenedor-form{
     width: 100%;
-    padding: 40px;
+    padding: 20px;
+    transition: all .5s ease;
 }
+
+/* Por defecto login visible, registro oculto */
+.fondo .login {
+    display: block;
+}
+.fondo .registrar {
+    display: none;
+}
+
+/* Cuando fondo tiene clase active, mostrar registro y ocultar login */
+.fondo.active .login {
+    display: none;
+}
+.fondo.active .registrar {
+    display: block;
+}
+
 .contenedor-form h2{
     font-size: 2em;
     color: #f8f9fa;
     text-align: center;
 }
+
 .contenedor-input{
     position: relative;
     width: 100%;
@@ -54,6 +84,7 @@ body{
     border-bottom: 2px solid white;
     margin: 20px 0;
 }
+
 .contenedor-input label{
     position: absolute;
     top: 50%;
@@ -65,12 +96,14 @@ body{
     transition: .4s;
     color: #f8f9fa;
 }
+
 .contenedor-input input:focus~label,
 .contenedor-input input:valid~label,
 .contenedor-input select:focus~label,
 .contenedor-input select:valid~label{
     top: -5px;
 }
+
 .contenedor-input input,
 .contenedor-input select{
     width: 100%;
@@ -82,6 +115,7 @@ body{
     color: #f8f9fa;
     padding: 0 35px 0 5px;
 }
+
 .contenedor-input .icono{
     position:absolute;
     right: 8px;
@@ -89,6 +123,7 @@ body{
     color: white;
     line-height: 57px;
 }
+
 .recordar{
     font-size: .8em;
     display: flex;
@@ -96,16 +131,20 @@ body{
     font-weight: 600;
     margin-bottom: 10px;
 }
+
 .recordar label input{
     accent-color: #090f1d;
     margin-right: 3px;
 }
+
 .recordar a{
     text-decoration: none;
 }
+
 .recordar a:hover{
     text-decoration: underline;
 }
+
 .btn{
     width: 100%;
     height: 45px;
@@ -119,12 +158,17 @@ body{
     color: #f8f9fa;
     margin-bottom: 10px;
 }
-.registrar{
+
+.registrar {
     font-size: .9em;
     color: #f8f9fa;
     text-align: center;
-    margin: 25px 0;
+    margin: 15px 0 0 0; /* que no se corte */
+    display: block; /* asegurarse que sea visible */
+    position: relative;
+    z-index: 2;
 }
+
 .registrar p a:hover{
     text-decoration: underline;
 }
@@ -136,6 +180,46 @@ body{
     border-radius: 5px;
     padding-left: 5px;
 }
+
 .contenedor-input select option{
     color: #000; /* texto de opciones negro para legibilidad */
+}
+
+.contenedor-input select {
+    margin-bottom: 20px;
+}
+.cambio-registro,
+.cambio-login {
+    font-size: .9em;
+    color: #f8f9fa;
+    text-align: center;
+    margin-top: 15px;
+    display: block;
+}
+
+.cambio-registro p a:hover,
+.cambio-login p a:hover {
+    text-decoration: underline;
+}
+/* Ajuste especial para el contenedor del select */
+.select-nivel {
+    height: auto;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.select-nivel label {
+    position: absolute;
+    top: -15px;
+    left: 5px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #f8f9fa;
+}
+
+.select-nivel select {
+    height: 40px;
+    padding-left: 10px;
+    margin-top: 5px;
 }

@@ -1,10 +1,20 @@
-const fondo = document.querySelector(".fondo");
-const loginlink = document.querySelector(".login-link");
-const registrarlink = document.querySelector(".registrar-link");
-const btn = document.querySelector(".btn");
-const iconocerrar = document.querySelector(".icono-cerrar");
+document.addEventListener("DOMContentLoaded", function() {
+    const fondo = document.querySelector(".fondo");
+    const loginlink = document.querySelector(".login-link");
+    const registrarlink = document.querySelector(".registrar-link");
 
-registrarlink.addEventListener("click", () => fondo.classList.add('active'));
-loginlink.addEventListener("click", () => fondo.classList.remove('active'));
-btn.addEventListener("click", () => fondo.classList.add('active-btn'));
-iconocerrar.addEventListener("click", () => fondo.classList.remove('active-btn'));
+    // Mostrar registro
+    registrarlink.addEventListener("click", (e) => {
+        e.preventDefault();
+        fondo.classList.add('active'); // muestra formulario registro
+    });
+
+    // Mostrar login
+    loginlink.addEventListener("click", (e) => {
+        e.preventDefault();
+        fondo.classList.remove('active'); // muestra formulario login
+    });
+
+    // Mantener login visible al cargar
+    fondo.classList.remove('active');
+});

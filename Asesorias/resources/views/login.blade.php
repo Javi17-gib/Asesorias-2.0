@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Asesorías</title>
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
@@ -11,9 +11,6 @@
 <body>
 
 <div class="fondo">
-
-    <!-- Botón cerrar -->
-    <a href="/Inicio" class="icono-cerrar"><i class="ri-close-line"></i></a>
 
     <!-- Login -->
     <div class="contenedor-form login">
@@ -38,9 +35,10 @@
 
             <button type="submit" class="btn">Iniciar Sesión</button>
 
-            <div class="registrar">
+            <div class="cambio-registro">
                 <p>¿No tienes cuenta? <a href="#" class="registrar-link">Registrarse</a></p>
             </div>
+
         </form>
     </div>
 
@@ -63,8 +61,9 @@
 
             <div class="contenedor-input">
                 <span class="icono"><i class="ri-user-fill"></i></span>
-                <input name="ap_materno" type="text" />
+                <input name="ap_materno" type="text" placeholder=" " />
                 <label>Apellido Materno</label>
+
             </div>
 
             <div class="contenedor-input">
@@ -79,15 +78,16 @@
                 <label>Contraseña</label>
             </div>
 
-            <div class="contenedor-input">
+            <div class="contenedor-input select-nivel">
+                <label>Nivel</label>
                 <span class="icono"><i class="ri-arrow-down-s-fill"></i></span>
                 <select name="nivel" required>
                     <option value="" disabled selected>Selecciona tu nivel</option>
                     <option value="alumno">Alumno</option>
                     <option value="docente">Docente</option>
                 </select>
-                <label>Nivel</label>
             </div>
+
 
             <div class="recordar">
                 <label><input type="checkbox" required />Acepto los términos y condiciones</label>
@@ -95,15 +95,16 @@
 
             <button type="submit" class="btn">Registrarme</button>
 
-            <div class="registrar">
+            <div class="cambio-login">
                 <p>¿Ya tienes cuenta? <a href="#" class="login-link">Iniciar Sesión</a></p>
             </div>
+
         </form>
     </div>
 
 </div>
 
-<!-- Tu JS de animación -->
+<!-- JS -->
 <script src="{{ asset('js/login.js') }}"></script>
 
 <!-- Alertas SweetAlert -->

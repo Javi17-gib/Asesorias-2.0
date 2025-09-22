@@ -13,6 +13,12 @@ class Materia extends Model
 
     protected $fillable = [
         'nombre',
-        'codigo_materia'
+        'codigo_materia',
+        'id_users'
     ];
+
+    public function docente()
+    {
+        return $this->belongsTo(User::class, 'id_users');
+    }
 }

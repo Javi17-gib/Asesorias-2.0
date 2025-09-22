@@ -1,17 +1,28 @@
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe Print'; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe Print', cursive;
+}
 
-.bg-purple { background-color: #522f7c !important; }
-.text-white { color: #fff !important; }
+.bg-purple {
+    background-color: #522f7c !important;
+    padding-left: 220px !important; /* Para que no se pegue al logo */
+}
+
+.text-white {
+    color: #fff !important;
+}
 
 #logo {
     position: absolute;
-    top: -60px;
-    left: 30px;
-    z-index: 10;
+    top: 15px;
+    left: 20px;
+    z-index: 1000;
 }
 
 #logo img {
-    height: 120px;
+    height: 110px;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.5);
 }
@@ -36,10 +47,10 @@
 
 .main video {
     width: 100%;
-    height: 100vh;
+    height: 80vh;
     object-fit: cover;
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
 .modal-content {
@@ -50,4 +61,20 @@
     border-radius: 5px;
     padding: 8px;
     font-size: 1rem;
+}
+
+/* Botón Salir */
+nav > form {
+    margin-left: 10px;
+}
+
+.btn-outline-light {
+    border-color: #fff;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: #522f7c;
 }

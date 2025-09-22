@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Asesorías</title>
 
-<!-- Bootstrap y estilos -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 <body>
 
 <header class="position-relative">
     <div id="logo">
-        <img src="{{ asset('img/tec.jpg') }}" alt="Logo">
+        <img src="{{ asset('img/tec.jpg') }}" alt="Logo" />
     </div>
 
     <div class="bg-purple text-white py-3 shadow-sm">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="m-0 fs-4">Asesorías Académicas</h1>
-
+            <h1 class="m-3 fs-1">Matemáticas Discretas</h1>
             <nav>
                 <ul class="nav">
+                    @php $nivel = session('usuario_nivel'); @endphp
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Materias</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" class="dropdown-item" onclick="abrirModal()">➕ Nueva Materia</a></li>
+                            @if($nivel === 'docente')
+                                <li><a href="#" class="dropdown-item" onclick="abrirModal()">➕ Nueva Materia</a></li>
+                            @endif
                             @foreach($materias as $materia)
                                 <li>
-                                    <a class="dropdown-item" href="{{ url('login.php?materia_id=' . $materia->id) }}">
+                                    <a class="dropdown-item" href="#">
                                         {{ $materia->nombre }} ({{ $materia->codigo_materia }})
                                     </a>
                                 </li>
@@ -37,6 +38,10 @@
                         </ul>
                     </li>
                 </ul>
+                <!-- Botón de salir -->
+                <a href="{{ route('logout') }}" class="btn btn-outline-light ms-3">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </a>
             </nav>
         </div>
     </div>
@@ -57,7 +62,7 @@
       <div class="modal-body">
         <form id="formNuevaMateria">
           @csrf
-          <input type="text" name="nombre" placeholder="Nombre de la materia" class="form-control mb-2" required>
+          <input type="text" name="nombre" placeholder="Nombre de la materia" class="form-control mb-2" required />
           <button type="submit" class="btn btn-primary w-100">Guardar</button>
         </form>
         <div id="mensaje" class="mt-2 text-success"></div>
@@ -66,13 +71,12 @@
   </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     const urlMateriasStore = "{{ route('materias.store') }}";
 </script>
 <script src="{{ asset('js/nuevaMateria.js') }}"></script>
+
 </body>
 </html>

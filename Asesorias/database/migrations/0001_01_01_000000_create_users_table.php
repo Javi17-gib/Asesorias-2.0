@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre', 100);
             $table->string('ap_paterno', 100);
             $table->string('ap_materno', 100)->nullable();
-            $table->enum('nivel', ['alumno', 'profesor'])->default('alumno');
+            $table->enum('nivel', ['alumno', 'docente'])->default('alumno');
             $table->string('email', 150)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

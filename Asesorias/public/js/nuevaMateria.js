@@ -28,13 +28,13 @@ document.getElementById("formNuevaMateria").addEventListener("submit", async fun
         if(data.success){
             const ul = document.querySelector('.dropdown-menu');
             const li = document.createElement('li');
-            li.innerHTML = `<a class="dropdown-item" href="login.php?materia_id=${data.materia.id}">${data.materia.nombre} (${data.materia.codigo_materia})</a>`;
+            li.innerHTML = `<a class="dropdown-item" href="#">${data.materia.nombre} (${data.materia.codigo_materia})</a>`;
             ul.appendChild(li);
 
             document.getElementById("mensaje").innerText = data.mensaje;
             this.reset();
         } else {
-            document.getElementById("mensaje").innerText = 'Error al guardar la materia.';
+            document.getElementById("mensaje").innerText = data.mensaje || 'Error al guardar la materia.';
         }
     } catch(err) {
         console.error(err);

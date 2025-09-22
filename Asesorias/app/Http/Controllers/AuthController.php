@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Registro
     public function register(Request $request)
     {
         $request->validate([
@@ -35,10 +34,9 @@ class AuthController extends Controller
             'usuario_nivel' => $user->nivel
         ]);
 
-        return redirect('/Inicio')->with('success', 'Registro exitoso, bienvenido.');
+        return redirect()->route('login.form')->with('success', '¡Registro exitoso! Ahora inicia sesión.');
     }
 
-    // Login
     public function login(Request $request)
     {
         $request->validate([
@@ -52,19 +50,22 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
         }
 
+        // Guardar datos del usuario en sesión
         session([
             'usuario_id' => $user->id,
             'usuario_nombre' => $user->nombre,
             'usuario_nivel' => $user->nivel
         ]);
 
-        return redirect('/Inicio')->with('success', 'Bienvenido de nuevo.');
+        return redirect()->route('Inicio')->with('success', 'Bienvenido de nuevo.');
     }
 
-    // Logout
     public function logout()
     {
-        session()->flush();
-        return redirect('/Login');
+        session()->flush();               // Borra todos los datos de sesión
+        session()->invalidate();          // Invalida la sesión actual
+        session()->regenerateToken();     // Protege contra CSRF
+
+        return redirect()->route('login.form');
     }
 }

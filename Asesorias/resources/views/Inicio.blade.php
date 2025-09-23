@@ -18,19 +18,19 @@
 
     <div class="bg-purple text-white py-3 shadow-sm">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="m-3 fs-1">Matemáticas Discretas</h1>
+            <h1 class="m-4 fs-1">Asesorias Academicas</h1>
             <nav>
                 <ul class="nav">
                     @php $nivel = session('usuario_nivel'); @endphp
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Materias</a>
+                        <a class="nav-link dropdown-toggle text-white fs-3" href="#" data-bs-toggle="dropdown">Materias</a>
                         <ul class="dropdown-menu">
                             @if($nivel === 'docente')
                                 <li><a href="#" class="dropdown-item" onclick="abrirModal()">➕ Nueva Materia</a></li>
                             @endif
                             @foreach($materias as $materia)
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('materia.show', $materia->codigo_materia) }}">
                                         {{ $materia->nombre }} ({{ $materia->codigo_materia }})
                                     </a>
                                 </li>
@@ -39,8 +39,8 @@
                     </li>
                 </ul>
                 <!-- Botón de salir -->
-                <a href="{{ route('logout') }}" class="btn btn-outline-light ms-3">
-                    <i class="bi bi-box-arrow-right"></i> Salir
+                <a href="{{ route('logout') }}" class="btn btn-outline-light ms-3 fs-3">
+                    <i class="bi bi-box-arrow-right fs-3"></i> Salir
                 </a>
             </nav>
         </div>

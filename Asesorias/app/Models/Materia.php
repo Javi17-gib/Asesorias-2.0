@@ -21,4 +21,10 @@ class Materia extends Model
     {
         return $this->belongsTo(User::class, 'id_users');
     }
+
+    // Relación con Unidades
+    public function unidades()
+    {
+        return $this->hasMany(Unidad::class, 'id_materia')->orderBy('orden');
+    }
 }

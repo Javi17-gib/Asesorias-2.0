@@ -50,7 +50,6 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
         }
 
-        // Guardar datos del usuario en sesión
         session([
             'usuario_id' => $user->id,
             'usuario_nombre' => $user->nombre,
@@ -62,10 +61,9 @@ class AuthController extends Controller
 
     public function logout()
     {
-        session()->flush();               // Borra todos los datos de sesión
-        session()->invalidate();          // Invalida la sesión actual
-        session()->regenerateToken();     // Protege contra CSRF
-
+        session()->flush();
+        session()->invalidate();
+        session()->regenerateToken();
         return redirect()->route('login.form');
     }
 }

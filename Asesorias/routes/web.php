@@ -24,5 +24,8 @@ Route::post('/materias', [MateriaController::class, 'store'])->name('materias.st
 // Ver materia específica
 Route::get('/materia/{codigo}', [MateriaController::class, 'show'])->name('materia.show');
 
-Route::post('/materia/{materiaId}/unidad', [UnidadController::class, 'store'])->name('unidad.store');
-Route::post('/subtemas', [SubtemaController::class, 'store'])->name('subtema.store');
+// Guardar unidad
+Route::post('/materia/{materia}/unidad', [UnidadController::class, 'store'])->name('unidad.store');
+
+// Guardar subtema
+Route::post('/subtemas', [SubtemaController::class, 'store'])->name('subtemas.store');

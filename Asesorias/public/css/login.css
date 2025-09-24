@@ -130,6 +130,7 @@ body{
     justify-content: space-between;
     font-weight: 600;
     margin-bottom: 10px;
+    color: white;
 }
 
 .recordar label input{
@@ -139,6 +140,7 @@ body{
 
 .recordar a{
     text-decoration: none;
+    color: blue;
 }
 
 .recordar a:hover{
@@ -167,6 +169,12 @@ body{
     display: block; /* asegurarse que sea visible */
     position: relative;
     z-index: 2;
+}
+.registrar-link{
+    color: blue;
+}
+.login-link{
+    color: blue;
 }
 
 .registrar p a:hover{

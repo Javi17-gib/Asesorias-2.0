@@ -9,7 +9,7 @@ class Subtema extends Model
     use HasFactory;
 
     protected $table = 'subtemas';
-    protected $fillable = ['nombre', 'id_unidad', 'descripcion', 'orden'];
+    protected $fillable = ['id_unidad', 'nombre', 'descripcion', 'orden'];
 
     public function unidad()
     {

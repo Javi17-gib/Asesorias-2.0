@@ -5,7 +5,7 @@ $foto_usuario = asset('img/default.jpeg');
 
 <header class="position-relative bg-purple-700 p-2" style="background-color:#541469;">
     <!-- Título centrado -->
-    <h1 style="font-family: 'Times New Roman', serif; font-size:55px; color:white;" 
+    <h1 style="font-family: 'Times New Roman', serif; font-size:60px; color:white;" 
         class="position-absolute top-50 start-50 translate-middle mb-0">
         {{ $materia->nombre ?? 'Materia' }}
     </h1>
@@ -25,7 +25,6 @@ $foto_usuario = asset('img/default.jpeg');
             </ul>
         </div>
     </div>
-
     <!-- Menú principal debajo del título -->
     <nav class="mt-5">
         <ul class="nav justify-content-center">
@@ -33,20 +32,10 @@ $foto_usuario = asset('img/default.jpeg');
                 <a class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">Inicio</a>
             </li>
             <li class="nav-item mx-5">
-                <a class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">Fórmulas</a>
-            </li>
-            <li class="nav-item dropdown mx-5">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                    style="font-family: 'Times New Roman', serif; font-size:22px; font-weight:bold; color:white;">
-                    Acerca de
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Contenido</a></li>
-                    <li><a class="dropdown-item" href="#">Desarrollo de plataforma</a></li>
-                </ul>
+                <a class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">Preguntas</a>
             </li>
             <li class="nav-item mx-5">
-                <a class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">Preguntas</a>
+                <a class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">ChatBot</a>
             </li>
         </ul>
     </nav>

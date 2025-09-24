@@ -31,13 +31,16 @@
 
             <div class="recordar">
                 <label><input type="checkbox" />Recordar sesión</label>
+                <a href="#">¿Olvidaste la Contraseña?</a>
             </div>
+            
 
             <button type="submit" class="btn">Iniciar Sesión</button>
 
             <div class="cambio-registro">
                 <p>¿No tienes cuenta? <a href="#" class="registrar-link">Registrarse</a></p>
             </div>
+            
 
         </form>
     </div>
@@ -92,6 +95,7 @@
             <div class="recordar">
                 <label><input type="checkbox" required />Acepto los términos y condiciones</label>
             </div>
+            
 
             <button type="submit" class="btn">Registrarme</button>
 

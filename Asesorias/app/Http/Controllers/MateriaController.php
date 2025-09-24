@@ -16,7 +16,7 @@ class MateriaController extends Controller
 
     public function show($codigo)
     {
-        $materia = Materia::with(['unidades.subtemas.contenido'])
+        $materia = Materia::with(['unidades.subtemas'])
             ->where('codigo_materia', $codigo)
             ->first();
 

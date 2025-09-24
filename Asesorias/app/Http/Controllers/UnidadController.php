@@ -10,24 +10,32 @@ class UnidadController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:150',
+            'titulo' => 'nullable|string|max:255',
             'numero_unidad' => 'required|integer|min:1',
         ]);
 
-        $unidad = Unidad::create([
-            'nombre' => $request->nombre,
-            'id_materia' => $materiaId,
-            'numero_unidad' => $request->numero_unidad,
-            'orden' => $request->numero_unidad,
-        ]);
+        try {
+            $unidad = Unidad::create([
+                'nombre' => $request->nombre,
+                'titulo' => $request->titulo,
+                'id_materia' => $materiaId,
+                'numero_unidad' => $request->numero_unidad,
+                'orden' => $request->numero_unidad,
+            ]);
 
-        if ($request->ajax()) {
+            // ⚠️ Siempre devolver JSON
             return response()->json([
                 'success' => true,
                 'mensaje' => 'Unidad creada correctamente',
                 'unidad' => $unidad
             ]);
-        }
 
-        return redirect()->back()->with('success', 'Unidad creada correctamente');
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'mensaje' => 'Error al guardar unidad: '.$e->getMessage()
+            ], 500);
+        }
     }
 }
+

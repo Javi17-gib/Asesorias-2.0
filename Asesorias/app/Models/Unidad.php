@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,17 +8,11 @@ class Unidad extends Model
 {
     use HasFactory;
 
-    protected $table = 'unidades'; // <-- aquí le dices la tabla correcta
-
-    protected $fillable = ['nombre', 'id_materia', 'orden'];
+    protected $table = 'unidades'; // asegúrate de que la tabla exista
+    protected $fillable = ['nombre', 'id_materia', 'numero_unidad', 'orden'];
 
     public function subtemas()
     {
         return $this->hasMany(Subtema::class, 'id_unidad');
-    }
-
-    public function materia()
-    {
-        return $this->belongsTo(Materia::class, 'id_materia');
     }
 }

@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->string('nombre', 150);
             $table->foreignId('id_materia')->constrained('materias')->onDelete('cascade');
-            $table->integer('numero_unidad');
+            $table->integer('numero_unidad')->default(1);
             $table->integer('orden')->default(1);
             $table->timestamps();
         });

@@ -9,7 +9,7 @@ return new class extends Migration {
         Schema::create('subtemas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 150);
-            $table->foreignId('id_unidades')->constrained('unidades')->onDelete('cascade');
+            $table->foreignId('id_unidad')->constrained('unidades')->onDelete('cascade');
             $table->text('descripcion')->nullable();
             $table->integer('orden')->default(1);
             $table->timestamps();

@@ -18,7 +18,7 @@
 
     <div class="bg-purple text-white py-3 shadow-sm">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="m-4 fs-1">Asesorias Academicas</h1>
+            <h1 class="m-4 fs-1">Asesorías Académicas</h1>
             <nav>
                 <ul class="nav">
                     @php $nivel = session('usuario_nivel'); @endphp
@@ -61,9 +61,9 @@
       </div>
       <div class="modal-body">
         <form id="formNuevaMateria">
-          @csrf
-          <input type="text" name="nombre" placeholder="Nombre de la materia" class="form-control mb-2" required />
-          <button type="submit" class="btn btn-primary w-100">Guardar</button>
+            @csrf
+            <input type="text" name="nombre" placeholder="Nombre de la materia" class="form-control mb-2" required />
+            <button type="submit" class="btn btn-primary w-100">Guardar</button>
         </form>
         <div id="mensaje" class="mt-2 text-success"></div>
       </div>
@@ -71,12 +71,18 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Toast Container -->
+<div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1080;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('js/temario.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     const urlMateriasStore = "{{ route('materias.store') }}";
 </script>
 <script src="{{ asset('js/nuevaMateria.js') }}"></script>
+
+
 
 </body>
 </html>

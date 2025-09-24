@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MateriaController;
-use App\Http\Controllers\ContenidoController;
+use App\Http\Controllers\UnidadController;
+use App\Http\Controllers\SubtemaController;
 
 // Inicio redirige a login
 Route::get('/', function () { return redirect()->route('login.form'); });
@@ -24,6 +25,4 @@ Route::post('/materias', [MateriaController::class, 'store'])->name('materias.st
 Route::get('/materia/{codigo}', [MateriaController::class, 'show'])->name('materia.show');
 
 Route::post('/materia/{materiaId}/unidad', [UnidadController::class, 'store'])->name('unidad.store');
-Route::post('/unidad/{unidadId}/subtema', [UnidadController::class, 'storeSubtema'])->name('subtema.store');
-
-Route::get('/materia/{codigo}', [MateriaController::class, 'show'])->name('materia.show');
+Route::post('/subtemas', [SubtemaController::class, 'store'])->name('subtema.store');

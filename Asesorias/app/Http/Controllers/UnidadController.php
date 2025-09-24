@@ -1,44 +1,33 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Unidad;
-use App\Models\Subtema;
 
 class UnidadController extends Controller
 {
-    // Guardar unidad
-    public function store(Request $request) {
+    public function store(Request $request, $materiaId)
+    {
         $request->validate([
-            'materia_id' => 'required|exists:materias,id',
-            'nombre' => 'required|string|max:255',
-            'orden' => 'nullable|integer',
+            'nombre' => 'required|string|max:150',
+            'numero_unidad' => 'required|integer|min:1',
         ]);
 
-        Unidad::create([
-            'id_materia' => $request->materia_id,
+        $unidad = Unidad::create([
             'nombre' => $request->nombre,
-            'orden' => $request->orden ?? 1,
+            'id_materia' => $materiaId,
+            'numero_unidad' => $request->numero_unidad,
+            'orden' => $request->numero_unidad,
         ]);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'mensaje' => 'Unidad creada correctamente',
+                'unidad' => $unidad
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Unidad creada correctamente');
-    }
-
-    // Guardar subtema
-    public function storeSubtema(Request $request) {
-        $request->validate([
-            'unidad_id' => 'required|exists:unidades,id',
-            'nombre' => 'required|string|max:255',
-            'orden' => 'nullable|integer',
-        ]);
-
-        Subtema::create([
-            'id_unidad' => $request->unidad_id,
-            'nombre' => $request->nombre,
-            'orden' => $request->orden ?? 1,
-        ]);
-
-        return redirect()->back()->with('success', 'Subtema creado correctamente');
     }
 }

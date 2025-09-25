@@ -104,3 +104,41 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof tinymce !== 'undefined') {
+        tinymce.init({
+            selector: '#descripcionMateria',
+            height: 300,
+            menubar: false,
+            plugins: 'lists link image paste help wordcount',
+            toolbar: 'undo redo | bold italic underline | bullist numlist | link image | removeformat | help'
+        });
+    }
+
+    const btnGuardar = document.getElementById('guardarDescripcion');
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', async () => {
+            const descripcion = tinymce.get('descripcionMateria').getContent();
+            const idMateria = "{{ $materia->id }}";
+
+            try {
+                const response = await fetch("{{ route('descripcion.store') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id_materia: idMateria, descripcion })
+                });
+
+                const data = await response.json();
+                if (data.success) alert(data.mensaje);
+            } catch (err) {
+                console.error(err);
+                alert('Error al guardar la descripción');
+            }
+        });
+    }
+});
+

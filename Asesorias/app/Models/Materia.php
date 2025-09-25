@@ -27,4 +27,19 @@ class Materia extends Model
     {
         return $this->hasMany(Unidad::class, 'id_materia')->orderBy('orden');
     }
+
+    public function descripcion()
+    {
+        return $this->hasOne(\App\Models\DescripcionMateria::class, 'id_materia');
+    }
+
+    // app/Models/Materia.php
+    public function imagenes()
+    {
+        return $this->hasMany(ImagenMateria::class, 'id_materia');
+    }
+
+
+
+
 }

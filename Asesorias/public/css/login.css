@@ -231,3 +231,18 @@ body{
     padding-left: 10px;
     margin-top: 5px;
 }
+.imagen-fija-container {
+    width: 100%; /* ocupa todo el ancho del col */
+    height: 250px; /* altura fija */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f8f9fa; /* color de fondo opcional */
+}
+
+.imagen-fija {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* ajusta la imagen al contenedor sin deformarla */
+}

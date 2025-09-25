@@ -15,19 +15,36 @@ class MateriaController extends Controller
     }
 
     public function show($codigo)
-    {
-        $materia = Materia::with(['unidades.subtemas'])
-            ->where('codigo_materia', $codigo)
-            ->first();
+{
+    $materia = Materia::with(['unidades.subtemas', 'descripcion'])
+        ->where('codigo_materia', $codigo)
+        ->first();
 
-        if (!$materia) abort(404, 'Materia no encontrada');
+    if (!$materia) abort(404, 'Materia no encontrada');
 
-        $usuario_nombre = session('usuario_nombre', 'Invitado');
-        $usuario_id = session('usuario_id');
-        $nivel = session('usuario_nivel', 'alumno');
+    $usuario_nombre = session('usuario_nombre', 'Invitado');
+    $usuario_id = session('usuario_id');
+    $usuario_nivel = session('usuario_nivel', 'alumno'); // ⚡ nivel correcto
 
-        return view('index', compact('materia', 'usuario_nombre', 'usuario_id', 'nivel'));
+    // ⚡ Obtener imágenes de la materia
+    $imagenes = $materia->imagenes ?? collect(); // si no tiene imágenes, colección vacía
+
+    // ⚡ Asegurar que siempre haya 2 espacios para imágenes (para subir/cambiar)
+    if ($imagenes->count() < 2) {
+        $faltantes = 2 - $imagenes->count();
+        for ($i = 0; $i < $faltantes; $i++) {
+            $imagenes->push(null);
+        }
     }
+
+    return view('index', compact(
+        'materia',
+        'usuario_nombre',
+        'usuario_id',
+        'usuario_nivel',
+        'imagenes'
+    ));
+}
 
     public function store(Request $request)
 {
@@ -62,5 +79,6 @@ class MateriaController extends Controller
 
     return redirect()->back()->with('success', 'Materia creada correctamente');
 }
+
 }
 

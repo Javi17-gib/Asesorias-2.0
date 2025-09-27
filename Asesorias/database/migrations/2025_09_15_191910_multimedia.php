@@ -12,13 +12,7 @@ return new class extends Migration {
             $table->string('ruta', 255);
             $table->enum('tipo', ['imagen','video','documento','audio']);
             $table->integer('tamano')->nullable();
-            
-            // Relación con contenido (opcional)
-            $table->foreignId('id_contenido')->nullable()->constrained('contenido')->onDelete('cascade');
-
-            // Relación con materia (para imágenes de materia)
-            $table->foreignId('id_materia')->nullable()->constrained('materias')->onDelete('cascade');
-
+            $table->foreignId('id_contenido')->constrained('contenido')->onDelete('cascade');
             $table->timestamps();
         });
     }

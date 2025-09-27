@@ -48,3 +48,5 @@ Route::post('/imagen/store', [ImagenMateriaController::class, 'store'])->name('i
 Route::post('/imagen/store', [ImagenMateriaController::class, 'store'])
      ->name('imagen.store')
      ->middleware('web'); // importante, para que funcione la sesión
+
+Route::get('/subtema/{subtema}', [SubtemaController::class, 'show'])->name('subtemas.show');

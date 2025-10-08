@@ -62,3 +62,4 @@ Route::post('/materia/{materia}/unidad', [UnidadController::class, 'store'])
 
 Route::post('/chatbot/message', [ChatbotController::class, 'handleMessage'])->name('chatbot.message');
 Route::put('/unidad/{unidadId}', [UnidadController::class, 'update'])->name('unidad.update');
+Route::post('/chatbot/message', [ChatbotController::class, 'handleMessage']);

@@ -1,4 +1,4 @@
-<div id="temarioApp" data-materia-id="{{ $materia->id }}" class="card shadow-sm mt-4 rounded-lg"
+<div id="temarioApp" data-materia-id="{{ $materia?->id ?? 0 }}" class="card shadow-sm mt-4 rounded-lg"
     style="background-color:#711092; color:white;">
     <div class="card-body">
         <h5 class="card-title text-center">Temario</h5>
@@ -9,21 +9,21 @@
 
         {{-- Contenedor vacío: JS cargará aquí las unidades --}}
         <div id="unidadesContainer">
-            @foreach($materia->unidades as $unidad)
-            <div class="btn-group dropend mt-3 w-100" data-unidad-id="{{ $unidad->id }}">
+            @foreach($materia->unidades ?? [] as $unidad)
+            <div class="btn-group dropend mt-3 w-100" data-unidad-id="{{ $unidad?->id ?? 0 }}">
                 <button type="button" class="btn btn-light w-100 text-start dropdown-toggle rounded"
                     data-bs-toggle="dropdown">
-                    {{ $unidad->nombre }}
+                    {{ $unidad?->nombre ?? 'Unidad sin nombre' }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark w-100%">
                     <li>
-                        <h6 class="dropdown-header">{{ $unidad->titulo ?? '' }}</h6>
+                        <h6 class="dropdown-header">{{ $unidad?->titulo ?? '' }}</h6>
                     </li>
 
-                    @forelse($unidad->subtemas as $subtema)
+                    @forelse($unidad->subtemas ?? [] as $subtema)
                     <li>
-                        <a class="dropdown-item" href="{{ route('subtemas.show', $subtema->id) }}">
-                            {{ $subtema->nombre }}
+                        <a class="dropdown-item" href="{{ route('subtemas.show', $subtema?->id ?? 0) }}">
+                            {{ $subtema?->nombre ?? 'Subtema sin nombre' }}
                         </a>
                     </li>
 
@@ -34,7 +34,7 @@
                     @if($usuario_nivel === 'docente')
                     <li>
                         <button class="btn btn-sm btn-success w-100 mt-2"
-                            onclick="abrirModalSubtema({{ $unidad->id }})">+ Nuevo Subtema</button>
+                            onclick="abrirModalSubtema({{ $unidad?->id ?? 0 }})">+ Nuevo Subtema</button>
                     </li>
                     @endif
                 </ul>

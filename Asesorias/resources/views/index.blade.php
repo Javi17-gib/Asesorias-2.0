@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="usuario-nivel" content="{{ $usuario_nivel ?? 'estudiante' }}">
+<meta name="chatbot-url" content="{{ url('/chatbot/message') }}">
+
+
+
+
 
 <!-- Summernote CSS -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs5.min.css" rel="stylesheet">
@@ -20,12 +25,12 @@
 
 <div class="container-fluid">
   <div class="row">
-    {{-- Aside --}}
+    {{-- Aside fijo --}}
     <aside class="col-md-3 col-lg-2 mt-2">
       @include('layouts.temas', ['usuario_nivel' => $usuario_nivel, 'materia' => $materia])
     </aside>
 
-    {{-- Contenido principal --}}
+    {{-- Contenido principal desplazable --}}
     <main class="col-md-9 col-lg-10 mt-2">
       <h1 class="fw-bold">{{ $materia->nombre ?? '' }}</h1>
       <h5>Introducción a la materia</h5>
@@ -47,7 +52,6 @@
       <div class="row mt-5">
         @php
           $imagenes = $materia->imagenes ?? collect();
-          // siempre tener 2 elementos
           for ($i = $imagenes->count(); $i < 2; $i++) {
               $imagenes->push(null);
           }

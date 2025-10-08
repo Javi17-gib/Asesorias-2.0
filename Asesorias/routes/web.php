@@ -7,6 +7,8 @@ use App\Http\Controllers\UnidadController;
 use App\Http\Controllers\SubtemaController;
 use App\Http\Controllers\DescripcionMateriaController;
 use App\Http\Controllers\ImagenMateriaController;
+use App\Http\Controllers\ChatbotController;
+
 
 // Inicio redirige a login
 Route::get('/', function () {
@@ -50,3 +52,13 @@ Route::post('/imagen/store', [ImagenMateriaController::class, 'store'])
      ->middleware('web'); // importante, para que funcione la sesión
 
 Route::get('/subtema/{subtema}', [SubtemaController::class, 'show'])->name('subtemas.show');
+
+// Guardar descripción de subtema
+Route::post('/subtema/descripcion', [SubtemaController::class, 'guardarDescripcion'])
+     ->name('subtemas.descripcion.store');
+
+Route::post('/materia/{materia}/unidad', [UnidadController::class, 'store'])
+     ->name('unidad.store');
+
+Route::post('/chatbot/message', [ChatbotController::class, 'handleMessage'])->name('chatbot.message');
+Route::put('/unidad/{unidadId}', [UnidadController::class, 'update'])->name('unidad.update');

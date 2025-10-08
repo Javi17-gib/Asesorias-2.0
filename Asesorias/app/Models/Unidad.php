@@ -15,5 +15,10 @@ class Unidad extends Model
     {
         return $this->hasMany(Subtema::class, 'id_unidad');
     }
+    public function materia()
+{
+    return $this->belongsTo(Materia::class, 'id_materia');
+}
+
 }
 

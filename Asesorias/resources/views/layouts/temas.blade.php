@@ -55,9 +55,9 @@
             <div class="modal-body">
                 <form id="formNuevaUnidad">
                     @csrf
-                    <input type="text" name="nombre" placeholder="Nombre de la unidad" class="form-control mb-2"
+                    <input type="text" name="nombre" placeholder="Unidad(1,2,3....etc) " class="form-control mb-2"
                         required />
-                    <input type="text" name="titulo" placeholder="Título (opcional)" class="form-control mb-2" />
+                    <input type="text" name="titulo" placeholder="Título" class="form-control mb-2" />
                     <input type="number" name="numero_unidad" placeholder="Número de unidad" class="form-control mb-2"
                         min="1" value="1" required />
                     <button type="submit" class="btn btn-primary w-100">Guardar</button>

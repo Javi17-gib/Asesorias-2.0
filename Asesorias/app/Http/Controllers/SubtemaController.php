@@ -11,17 +11,14 @@ class SubtemaController extends Controller
     // Mostrar subtema
     public function show($subtemaId)
     {
-        // Buscamos el subtema con sus relaciones, si no existe lanzamos 404
         $subtema = Subtema::with(['unidad.materia', 'contenidos'])->findOrFail($subtemaId);
-
-        $usuario_nivel = session('usuario_nivel', 'alumno'); // docente o alumno
+        $usuario_nivel = session('usuario_nivel', 'alumno'); 
         $materia = $subtema->unidad->materia ?? null;
 
-        // Crear contenido inicial si no existe (solo para docentes)
         if ($subtema->contenidos()->count() === 0 && $usuario_nivel === 'docente') {
             Contenido::create([
                 'id_subtema' => $subtema->id,
-                'id_user' => session('usuario_id'), // ⚡ siempre pasa el usuario logueado
+                'id_user' => session('usuario_id'),
                 'titulo' => 'Descripción',
                 'contenido' => ''
             ]);
@@ -30,16 +27,12 @@ class SubtemaController extends Controller
         return view('subtema.show', compact('subtema', 'usuario_nivel', 'materia'));
     }
 
-    // Crear nuevo subtema
+    // Crear subtema
     public function store(Request $request)
     {
         $usuario_nivel = session('usuario_nivel', 'alumno');
-
         if ($usuario_nivel !== 'docente') {
-            return response()->json([
-                'success' => false,
-                'mensaje' => 'No tienes permisos para crear subtemas.'
-            ], 403);
+            return response()->json(['success'=>false,'mensaje'=>'No tienes permisos'],403);
         }
 
         $request->validate([
@@ -63,16 +56,40 @@ class SubtemaController extends Controller
         ]);
     }
 
-    // Guardar descripción de un subtema
+    // Actualizar subtema
+    public function update(Request $request, $subtemaId)
+    {
+        $usuario_nivel = session('usuario_nivel', 'alumno');
+        if ($usuario_nivel !== 'docente') {
+            return response()->json(['success'=>false,'mensaje'=>'No tienes permisos'],403);
+        }
+
+        $request->validate([
+            'nombre' => 'required|string|max:150',
+        ]);
+
+        $subtema = Subtema::findOrFail($subtemaId);
+        $subtema->update([
+            'nombre' => $request->nombre
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'subtema' => [
+                'id' => $subtema->id,
+                'nombre' => $subtema->nombre,
+                'id_unidad' => $subtema->id_unidad
+            ],
+            'mensaje' => 'Subtema actualizado correctamente'
+        ]);
+    }
+
+    // Guardar descripción
     public function guardarDescripcion(Request $request)
     {
         $usuario_nivel = session('usuario_nivel', 'alumno');
-
         if ($usuario_nivel !== 'docente') {
-            return response()->json([
-                'success' => false,
-                'mensaje' => 'No tienes permisos para editar este contenido.'
-            ], 403);
+            return response()->json(['success'=>false,'mensaje'=>'No tienes permisos'],403);
         }
 
         $request->validate([
@@ -86,10 +103,9 @@ class SubtemaController extends Controller
         if ($contenido) {
             $contenido->update([
                 'contenido' => $request->descripcion,
-                'id_user' => session('usuario_id') // ⚡ siempre pasar el usuario logueado
+                'id_user' => session('usuario_id')
             ]);
         } else {
-            // Si por alguna razón no existe, lo creamos
             Contenido::create([
                 'id_subtema' => $subtema->id,
                 'id_user' => session('usuario_id'),
@@ -99,5 +115,24 @@ class SubtemaController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+
+    // Eliminar subtema
+    public function destroy($subtemaId)
+    {
+        try {
+            $subtema = Subtema::findOrFail($subtemaId);
+            $subtema->delete();
+
+            return response()->json([
+                'success' => true,
+                'mensaje' => 'Subtema eliminado correctamente'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'mensaje' => 'Error al eliminar subtema: '.$e->getMessage()
+            ], 500);
+        }
     }
 }

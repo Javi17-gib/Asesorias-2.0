@@ -8,6 +8,7 @@ use App\Http\Controllers\SubtemaController;
 use App\Http\Controllers\DescripcionMateriaController;
 use App\Http\Controllers\ImagenMateriaController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\PerfilController;
 
 
 // Inicio redirige a login
@@ -61,5 +62,16 @@ Route::post('/materia/{materia}/unidad', [UnidadController::class, 'store'])
      ->name('unidad.store');
 
 Route::post('/chatbot/message', [ChatbotController::class, 'handleMessage'])->name('chatbot.message');
-Route::put('/unidad/{unidadId}', [UnidadController::class, 'update'])->name('unidad.update');
 Route::post('/chatbot/message', [ChatbotController::class, 'handleMessage']);
+
+Route::put('/unidad/{id}', [UnidadController::class, 'update'])->name('unidad.update');
+Route::delete('/unidad/{unidad}', [UnidadController::class, 'destroy'])->name('unidad.destroy');
+Route::delete('/subtemas/{subtema}', [SubtemaController::class, 'destroy'])->name('subtemas.destroy');
+Route::put('/subtemas/{subtema}', [SubtemaController::class,'update'])->name('subtemas.update');
+
+
+
+Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+Route::post('/perfil/actualizar', [PerfilController::class, 'actualizar'])->name('perfil.actualizar');
+
+

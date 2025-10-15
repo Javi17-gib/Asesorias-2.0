@@ -68,5 +68,23 @@ class UnidadController extends Controller
         ], 500);
     }
 }
+public function destroy($unidadId)
+{
+    try {
+        $unidad = Unidad::findOrFail($unidadId);
+        $unidad->delete();
+
+        return response()->json([
+            'success' => true,
+            'mensaje' => 'Unidad eliminada correctamente'
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'mensaje' => 'Error al eliminar unidad: '.$e->getMessage()
+        ], 500);
+    }
+}
 
 }

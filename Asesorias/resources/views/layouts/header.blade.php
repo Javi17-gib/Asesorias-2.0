@@ -1,6 +1,17 @@
 @php
+// Obtener datos del usuario desde la sesión
+$usuario_id = session('usuario_id');
 $usuario_nombre = session('usuario_nombre', 'Invitado');
-$foto_usuario = asset('img/default.jpeg');
+
+// Traer la foto de perfil desde la base de datos si existe
+$usuario_foto = null;
+if($usuario_id){
+    $usuario = \App\Models\User::find($usuario_id);
+    if($usuario && $usuario->foto_perfil){
+        $usuario_foto = asset('storage/' . $usuario->foto_perfil);
+    }
+}
+$foto_usuario = $usuario_foto ?? asset('img/default.jpeg');
 @endphp
 
 <header class="position-relative bg-purple-700 p-2" style="background-color:#541469;">
@@ -19,7 +30,7 @@ $foto_usuario = asset('img/default.jpeg');
                 {{ $usuario_nombre }}
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" id="userMenu">
-                <li><a href="#" class="dropdown-item"><i class="bi bi-person-fill"></i> Perfil</a></li>
+                <li><a href="{{ route('perfil') }}" class="dropdown-item"><i class="bi bi-person-fill"></i> Perfil</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a href="{{ route('logout') }}" class="dropdown-item"><i class="bi bi-box-arrow-in-left"></i> Cerrar Sesión</a></li>
             </ul>
@@ -120,3 +131,18 @@ $foto_usuario = asset('img/default.jpeg');
         background: transparent;
     }
 </style>
+
+<script>
+    const openChatbot = document.getElementById('openChatbot');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const chatbotSidebar = document.getElementById('chatbotSidebar');
+
+    openChatbot.addEventListener('click', (e) => {
+        e.preventDefault();
+        chatbotSidebar.style.right = '0';
+    });
+
+    closeChatbot.addEventListener('click', () => {
+        chatbotSidebar.style.right = '-350px';
+    });
+</script>

@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\UnidadController;
+use App\Http\Controllers\EjeunidadController;
 use App\Http\Controllers\SubtemaController;
+use App\Http\Controllers\EjesubtemaController;
 use App\Http\Controllers\DescripcionMateriaController;
 use App\Http\Controllers\ImagenMateriaController;
 use App\Http\Controllers\ChatbotController;
@@ -34,9 +36,11 @@ Route::get('/materia/{codigo}', [MateriaController::class, 'show'])->name('mater
 
 // Unidades
 Route::post('/materia/{materia}/unidad', [UnidadController::class, 'store'])->name('unidad.store');
+Route::post('/materia/{materia}/ejeunidad', [EjeUnidadController::class, 'store'])->name('ejeunidad.store');
 
 // Subtemas
 Route::post('/subtemas', [SubtemaController::class, 'store'])->name('subtemas.store');
+Route::post('/subtemas', [SubtemaController::class, 'store'])->name('ejesubtemas.store');
 
 // Descripción de materias
 Route::post('/descripcion-materia', [DescripcionMateriaController::class, 'store'])->name('descripcion.store');
@@ -75,3 +79,15 @@ Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
 Route::post('/perfil/actualizar', [PerfilController::class, 'actualizar'])->name('perfil.actualizar');
 
 
+Route::get('/ejercicio/{ejercicio}', [EjercicioController::class, 'show'])
+     ->name('ejercicios.show');
+
+
+// CRUD ejercicios
+Route::post('/ejercicios', [EjercicioController::class, 'store'])->name('ejercicios.store');
+Route::put('/ejercicios/{ejercicio}', [EjercicioController::class, 'update'])->name('ejercicios.update');
+Route::delete('/ejercicios/{ejercicio}', [EjercicioController::class, 'destroy'])->name('ejercicios.destroy');
+
+Route::post('/materia/{materia}/ejeunidad', [EjeUnidadController::class, 'store'])
+     ->name('ejeunidad.store')
+     ->middleware('web');

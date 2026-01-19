@@ -27,6 +27,12 @@ class Materia extends Model
     {
         return $this->hasMany(Unidad::class, 'id_materia')->orderBy('orden');
     }
+    
+    public function ejeunidades()
+    {
+        return $this->hasMany(EjeUnidad::class, 'id_materia');
+    }
+
 
     public function descripcion()
     {

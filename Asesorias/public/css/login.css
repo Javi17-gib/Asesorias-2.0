@@ -246,3 +246,18 @@ body{
     max-height: 100%;
     object-fit: cover; /* ajusta la imagen al contenedor sin deformarla */
 }
+h1{
+    color: white;
+    text-align: center;
+}
+h5{
+  color: white;
+    text-align: center; 
+    font-size: 1.2rem; 
+}
+.logo{
+    display: block;
+    margin: 0 auto;
+    height: 75px;
+    width: 280px;
+}

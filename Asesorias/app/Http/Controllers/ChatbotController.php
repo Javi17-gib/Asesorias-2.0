@@ -43,7 +43,7 @@ class ChatbotController extends Controller
             if (str_contains($e->getMessage(), 'rate limit')) {
                 return response()->json([
                     'success' => false,
-                    'reply' => 'Has enviado demasiadas solicitudes. Espera un momento antes de volver a intentar.'.$e->getMessage()
+                    'reply' => 'Has enviado demasiadas solicitudes. Espera un momento antes de volver a intentar.'//.$e->getMessage()
                 ], 429);
             }
 

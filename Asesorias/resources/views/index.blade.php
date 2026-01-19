@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="usuario-nivel" content="{{ $usuario_nivel ?? 'estudiante' }}">
 <meta name="chatbot-url" content="{{ url('/chatbot/message') }}">
 
@@ -28,6 +29,7 @@
     {{-- Aside fijo --}}
     <aside class="col-md-3 col-lg-2 mt-2">
       @include('layouts.temas', ['usuario_nivel' => $usuario_nivel, 'materia' => $materia])
+      @include('layouts.ejercicios', ['usuario_nivel' => $usuario_nivel, 'materia' => $materia])
     </aside>
 
     {{-- Contenido principal desplazable --}}
@@ -161,5 +163,6 @@ $(document).ready(function() {
 </script>
 
 <script src="{{ asset('js/temario.js') }}"></script>
+<script src="{{ asset('js/ejercicios.js') }}"></script>
 </body>
 </html>

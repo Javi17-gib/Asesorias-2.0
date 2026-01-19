@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <style>
-body { background: #f2f2f2; font-family: Arial, sans-serif; }
+body { background: #f2f2f2; font-family: Arial, sans-serif;}
 .perfil-container { max-width: 450px; margin: 60px auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); text-align: center; }
 .foto-perfil { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0d6efd; position: relative; }
 .btn-subir-foto { position: absolute; bottom: 0; right: 0; background: #0d6efd; border-radius: 50%; width: 35px; height: 35px; border: none; color: white; cursor: pointer; font-size: 18px; }

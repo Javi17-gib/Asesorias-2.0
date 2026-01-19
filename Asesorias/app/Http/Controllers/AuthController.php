@@ -18,6 +18,16 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
             'nivel' => 'required|in:alumno,docente',
         ]);
+         // 🔐 PIN FIJO DE DOCENTE
+    $PIN_DOCENTE = env('DOCENTE_PIN', '1234INCE');
+
+    if ($request->nivel === 'docente') {
+        if ($request->pin_docente !== $PIN_DOCENTE) {
+            return redirect()->back()
+                ->with('error', 'PIN de docente incorrecto')
+                ->withInput();
+        }
+    }
 
         $user = User::create([
             'nombre' => $request->nombre,

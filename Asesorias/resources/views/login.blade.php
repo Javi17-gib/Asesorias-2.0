@@ -14,7 +14,9 @@
 
     <!-- Login -->
     <div class="contenedor-form login">
-        <h2>Iniciar Sesión</h2>
+    <img src="img/logotec.png" class="logo">
+        <h1>Bienvenido</h1>
+        <h5>Inicia Sesión para continuar</h5>
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="contenedor-input">
@@ -64,7 +66,7 @@
 
             <div class="contenedor-input">
                 <span class="icono"><i class="ri-user-fill"></i></span>
-                <input name="ap_materno" type="text" placeholder=" " />
+                <input name="ap_materno" type="text" required />
                 <label>Apellido Materno</label>
 
             </div>
@@ -80,23 +82,22 @@
                 <input name="password" type="password" required />
                 <label>Contraseña</label>
             </div>
-
             <div class="contenedor-input select-nivel">
-                <label>Nivel</label>
-                <span class="icono"><i class="ri-arrow-down-s-fill"></i></span>
-                <select name="nivel" required>
+                <!--<label>Nivel</label>-->
+                <select name="nivel" id="nivel" onchange="mostrarPin()" required>
                     <option value="" disabled selected>Selecciona tu nivel</option>
                     <option value="alumno">Alumno</option>
                     <option value="docente">Docente</option>
                 </select>
+                <div id="pinDocente" style="display:none;">
+                    <input type="password" name="pin_docente" placeholder="PIN de docente">
+                </div>
             </div>
-
 
             <div class="recordar">
                 <label><input type="checkbox" required />Acepto los términos y condiciones</label>
             </div>
             
-
             <button type="submit" class="btn">Registrarme</button>
 
             <div class="cambio-login">
@@ -123,6 +124,14 @@ Swal.fire({ icon: 'error', title: 'Error', text: '{{ session("error") }}' });
 Swal.fire({ icon: 'success', title: 'Éxito', text: '{{ session("success") }}' });
 </script>
 @endif
+<script>
+function mostrarPin() {
+  const nivel = document.getElementById("nivel").value;
+  const pin = document.getElementById("pinDocente");
+
+  pin.style.display = (nivel === "docente") ? "block" : "none";
+}
+</script>
 
 </body>
 </html>

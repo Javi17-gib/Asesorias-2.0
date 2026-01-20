@@ -37,7 +37,6 @@
                                 <a class="dropdown-item mb-0 p-0" href="{{ route('subtemas.show', $subtema?->id ?? 0) }}" data-subtema-id="{{ $subtema->id }}">
                                     {{ $subtema?->nombre ?? 'Subtema sin nombre' }}
                                 </a>
-
                                 @if($usuario_nivel === 'docente')
                                 <div class="btn-group btn-sm ms-2">
                                     <button class="btn btn-outline-warning btn-sm" 

@@ -79,15 +79,13 @@ Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
 Route::post('/perfil/actualizar', [PerfilController::class, 'actualizar'])->name('perfil.actualizar');
 
 
-Route::get('/ejercicio/{ejercicio}', [EjercicioController::class, 'show'])
-     ->name('ejercicios.show');
 
 
-// CRUD ejercicios
-Route::post('/ejercicios', [EjercicioController::class, 'store'])->name('ejercicios.store');
-Route::put('/ejercicios/{ejercicio}', [EjercicioController::class, 'update'])->name('ejercicios.update');
-Route::delete('/ejercicios/{ejercicio}', [EjercicioController::class, 'destroy'])->name('ejercicios.destroy');
+//---------------------------------------------------------------------------------------------------------------
+Route::post('/materia/{materia}/unidad', [EjeUnidadController::class, 'store']);
+Route::put('/unidad/{unidad}', [EjeUnidadController::class, 'update']);
+Route::delete('/unidad/{unidad}', [EjeUnidadController::class, 'destroy']);
 
-Route::post('/materia/{materia}/ejeunidad', [EjeUnidadController::class, 'store'])
-     ->name('ejeunidad.store')
-     ->middleware('web');
+Route::post('/ejercicios', [EjercicioController::class, 'store']);
+Route::put('/ejercicios/{ejercicio}', [EjercicioController::class, 'update']);
+Route::delete('/ejercicios/{ejercicio}', [EjercicioController::class, 'destroy']);

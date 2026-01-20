@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const modalEjeUnidad = new bootstrap.Modal(document.getElementById("modalEjeUnidad"));
+    const modalSubtema = new bootstrap.Modal(document.getElementById("modalSubtema"));
     const modalEjercicio = new bootstrap.Modal(document.getElementById("modalEjercicio"));
-    const usuarioNivel = document.querySelector('meta[name="usuario-nivel"]')?.content || 'estudiante';
-    const materiaId = document.getElementById("ejerciciosApp")?.dataset.materiaId;
+
+    const app = document.getElementById("ejerciciosApp");
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-    const unidadesContainer = document.getElementById("unidadesContainerEjercicios");
+    const materiaId = app?.dataset.materiaId;
 
-    // ---------------------- UNIDAD ----------------------
+    /* ================== UNIDAD ================== */
     window.abrirModalEjeUnidad = () => {
         document.getElementById("formNuevaEjeUnidad").reset();
         document.getElementById("ejeUnidadId").value = "";
@@ -24,80 +26,136 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("formNuevaEjeUnidad").addEventListener("submit", async (e) => {
         e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('nombre', document.getElementById("nombreEjeUnidad").value);
-        formData.append('titulo', document.getElementById("tituloEjeUnidad").value);
-        formData.append('numero_unidad', document.getElementById("numeroEjeUnidad").value);
-
+        const form = e.target;
+        const formData = new FormData(form);
         const unidadId = document.getElementById("ejeUnidadId").value;
-        let url = `/materia/${materiaId}/ejeunidad`;
-        let method = 'POST';
+
+        let url = `/materia/${materiaId}/unidad`;
         if (unidadId) {
-            url = `/ejeunidad/${unidadId}`;
+            url = `/unidad/${unidadId}`;
             formData.append('_method', 'PUT');
         }
 
         try {
-            const res = await fetch(url, { method: 'POST', body: formData });
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfToken },
+                body: formData
+            });
             const data = await res.json();
-
-            if (data.success) {
-                location.reload(); // o actualizar DOM como en temario
-            } else {
-                alert(data.mensaje || 'Error al guardar unidad');
-            }
+            if (data.success) location.reload();
+            else alert(data.mensaje || 'Error al guardar unidad');
         } catch (err) {
             console.error(err);
-            alert('Error al guardar unidad. Revisa la consola.');
+            alert('Error al guardar unidad');
         }
     });
 
     window.eliminarEjeUnidad = async (id) => {
         if (!confirm("¿Eliminar esta unidad?")) return;
-
         try {
-            const res = await fetch(`/ejeunidad/${id}`, {
+            const res = await fetch(`/unidad/${id}`, {
                 method: 'DELETE',
                 headers: { 'X-CSRF-TOKEN': csrfToken }
             });
             const data = await res.json();
             if (data.success) location.reload();
-            else alert(data.mensaje || 'Error al eliminar');
+            else alert(data.mensaje || 'Error al eliminar unidad');
         } catch (err) {
             console.error(err);
-            alert('Error al eliminar unidad.');
+            alert('Error al eliminar unidad');
         }
     };
 
-    // ---------------------- EJERCICIO ----------------------
+    /* ================== SUBTEMA ================== */
+    window.abrirModalSubtemaNueva = (unidadId) => {
+        const form = document.getElementById("formNuevoSubtema");
+        form.reset();
+        document.getElementById("subtemaId").value = "";
+        document.getElementById("subtemaUnidadId").value = unidadId;
+        modalSubtema.show();
+    };
+
+    window.abrirModalSubtema = (id, nombre, unidadId) => {
+        document.getElementById("subtemaId").value = id;
+        document.getElementById("nombreSubtema").value = nombre;
+        document.getElementById("subtemaUnidadId").value = unidadId;
+        modalSubtema.show();
+    };
+
+    window.abrirModalEditarSubtema = (id, nombre, unidadId) => {
+        document.getElementById("subtemaId").value = id;
+        document.getElementById("nombreSubtema").value = nombre;
+        document.getElementById("subtemaUnidadId").value = unidadId;
+        modalSubtema.show();
+    };
+
+    document.getElementById("formNuevoSubtema").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const subtemaId = document.getElementById("subtemaId").value;
+
+        let url = '/subtemas';
+        if (subtemaId) {
+            url = `/subtemas/${subtemaId}`;
+            formData.append('_method', 'PUT');
+        }
+
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfToken },
+                body: formData
+            });
+            const data = await res.json();
+            if (data.success) location.reload();
+            else alert(data.mensaje || 'Error al guardar subtema');
+        } catch (err) {
+            console.error(err);
+            alert('Error al guardar subtema');
+        }
+    });
+
+    window.eliminarSubtema = async (id) => {
+        if (!confirm("¿Eliminar este subtema?")) return;
+        try {
+            const res = await fetch(`/subtemas/${id}`, {
+                method: 'DELETE',
+                headers: { 'X-CSRF-TOKEN': csrfToken }
+            });
+            const data = await res.json();
+            if (data.success) location.reload();
+            else alert(data.mensaje || 'Error al eliminar subtema');
+        } catch (err) {
+            console.error(err);
+            alert('Error al eliminar subtema');
+        }
+    };
+
+    /* ================== EJERCICIO ================== */
     window.abrirModalEjercicioNueva = (unidadId) => {
-        document.getElementById("ejercicioId").value = '';
+        const form = document.getElementById("formNuevoEjercicio");
+        form.reset();
+        document.getElementById("ejercicioId").value = "";
         document.getElementById("ejercicioUnidadId").value = unidadId;
-        document.getElementById("nombreEjercicio").value = '';
-        document.getElementById("contenidoEjercicio").value = '';
         modalEjercicio.show();
     };
 
     window.abrirModalEjercicio = (id, nombre, contenido, unidadId) => {
         document.getElementById("ejercicioId").value = id;
-        document.getElementById("ejercicioUnidadId").value = unidadId;
         document.getElementById("nombreEjercicio").value = nombre;
         document.getElementById("contenidoEjercicio").value = contenido;
+        document.getElementById("ejercicioUnidadId").value = unidadId;
         modalEjercicio.show();
     };
 
     document.getElementById("formNuevoEjercicio").addEventListener("submit", async (e) => {
         e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('_token', csrfToken);
-        formData.append('nombre', document.getElementById("nombreEjercicio").value);
-        formData.append('contenido', document.getElementById("contenidoEjercicio").value);
-        formData.append('id_eje_unidad', document.getElementById("ejercicioUnidadId").value);
-
+        const form = e.target;
+        const formData = new FormData(form);
         const ejercicioId = document.getElementById("ejercicioId").value;
+
         let url = '/ejercicios';
         if (ejercicioId) {
             url = `/ejercicios/${ejercicioId}`;
@@ -105,14 +163,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const res = await fetch(url, { method: 'POST', body: formData });
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfToken },
+                body: formData
+            });
             const data = await res.json();
-
             if (data.success) location.reload();
             else alert(data.mensaje || 'Error al guardar ejercicio');
         } catch (err) {
             console.error(err);
-            alert('Error al guardar ejercicio. Revisa la consola.');
+            alert('Error al guardar ejercicio');
         }
     });
 
@@ -128,7 +189,8 @@ document.addEventListener("DOMContentLoaded", () => {
             else alert(data.mensaje || 'Error al eliminar ejercicio');
         } catch (err) {
             console.error(err);
-            alert('Error al eliminar ejercicio.');
+            alert('Error al eliminar ejercicio');
         }
     };
+
 });

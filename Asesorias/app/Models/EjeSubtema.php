@@ -7,18 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class EjeSubtema extends Model
 {
-    use HasFactory;
-
     protected $table = 'ejesubtemas';
-    protected $fillable = ['id_unidad', 'nombre', 'descripcion'];
+
+    protected $fillable = [
+        'id_unidad',
+        'nombre'
+    ];
+
+    public function unidad()
+    {
+        return $this->belongsTo(EjeUnidad::class, 'id_unidad');
+    }
 
     public function contenidos()
-{
-    return $this->hasMany(Contenido::class, 'id_subtema');
-}
-public function unidad()
-{
-    return $this->belongsTo(EjeUnidad::class, 'id_unidad');
+    {
+        return $this->hasMany(Contenido::class, 'id_subtema');
+    }
 }
 
-}

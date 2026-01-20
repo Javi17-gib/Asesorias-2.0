@@ -14,25 +14,63 @@
                     data-bs-toggle="dropdown">
                     {{ $unidad?->nombre ?? 'Unidad sin nombre' }}
                 </button>
+
                 @if($usuario_nivel === 'docente')
-                <button class="btn btn-outline-warning btn-sm ms-2" 
-                        style="width:45px; height:36px; padding:0; display:flex; align-items:center; justify-content:center; border-radius: 10px;" 
+                <button class="btn btn-outline-warning btn-sm ms-2"
+                        style="width:45px; height:36px; padding:0; display:flex; align-items:center; justify-content:center; border-radius: 10px;"
                         onclick="abrirModalEditarEjeUnidad({{ $unidad->id }}, '{{ $unidad->nombre }}', '{{ $unidad->titulo }}', {{ $unidad->numero_unidad }})">
                     ✏️
                 </button>
-                <button class="btn btn-outline-danger btn-sm ms-2" 
-                        style="width:45px; height:36px; padding:0; display:flex; align-items:center; justify-content:center; border-radius: 10px;" 
+                <button class="btn btn-outline-danger btn-sm ms-2"
+                        style="width:45px; height:36px; padding:0; display:flex; align-items:center; justify-content:center; border-radius: 10px;"
                         onclick="eliminarEjeUnidad({{ $unidad->id }})">
                     🗑️
                 </button>
                 @endif
+
                 <ul class="dropdown-menu dropdown-menu-dark" style="min-width: 250px;">
                     <li>
                         <h6 class="dropdown-header">{{ $unidad?->titulo ?? '' }}</h6>
                     </li>
 
-                    @forelse($unidad->ejercicios ?? [] as $ejercicio)
+                    {{-- Subtemas --}}
+                    @forelse($unidad->subtemas ?? [] as $subtema)
                     <li class="px-2 d-flex justify-content-between align-items-center">
+                        <a class="dropdown-item p-0" href="#"
+                           onclick="abrirModalSubtema({{ $subtema->id }}, '{{ addslashes($subtema->nombre) }}', {{ $unidad->id }})">
+                            {{ $subtema->nombre }}
+                        </a>
+                        @if($usuario_nivel === 'docente')
+                        <div class="btn-group btn-sm ms-2">
+                            <button class="btn btn-outline-warning btn-sm"
+                                    style="width:30px; height:30px; padding:0; display:flex; align-items:center; justify-content:center; border-radius: 10px;"
+                                    onclick="abrirModalEditarSubtema({{ $subtema->id }}, '{{ addslashes($subtema->nombre) }}', {{ $unidad->id }})">
+                                ✏️
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm ms-2"
+                                    style="width:30px; height:30px; padding:0; display:flex; align-items:center; justify-content:center; border-radius: 10px;"
+                                    onclick="eliminarSubtema({{ $subtema->id }})">
+                                🗑️
+                            </button>
+                        </div>
+                        @endif
+                    </li>
+                    @empty
+                    <li><span class="dropdown-item text-muted">No hay subtemas aún</span></li>
+                    @endforelse
+
+                    @if($usuario_nivel === 'docente')
+                    <li>
+                        <button class="btn btn-success btn-sm w-100 mt-2"
+                                onclick="abrirModalSubtemaNueva({{ $unidad->id }})">
+                            + Nuevo Subtema
+                        </button>
+                    </li>
+                    @endif
+
+                    {{-- Ejercicios --}}
+                    @forelse($unidad->ejercicios ?? [] as $ejercicio)
+                    <li class="px-2 d-flex justify-content-between align-items-center mt-2">
                         <a class="dropdown-item p-0" href="#"
                            onclick="abrirModalEjercicio({{ $ejercicio->id }}, '{{ addslashes($ejercicio->nombre) }}', '{{ addslashes($ejercicio->contenido ?? '') }}', {{ $unidad->id }})">
                             {{ $ejercicio->nombre }}
@@ -54,6 +92,7 @@
                         </button>
                     </li>
                     @endif
+
                 </ul>
             </div>
             @endforeach
@@ -79,6 +118,28 @@
                     <button type="submit" class="btn btn-primary w-100">Guardar</button>
                 </form>
                 <div id="mensajeEjeUnidad" class="mt-2 text-success"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Subtema --}}
+<div class="modal fade" id="modalSubtema" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo Subtema</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formNuevoSubtema">
+                    @csrf
+                    <input type="hidden" name="subtemaId" id="subtemaId" />
+                    <input type="hidden" name="unidadId" id="subtemaUnidadId" />
+                    <input type="text" name="nombre" id="nombreSubtema" class="form-control mb-2" placeholder="Nombre del subtema" required />
+                    <button type="submit" class="btn btn-success w-100">Guardar</button>
+                </form>
+                <div id="mensajeSubtema" class="mt-2 text-success"></div>
             </div>
         </div>
     </div>

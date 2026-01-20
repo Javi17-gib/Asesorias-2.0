@@ -163,6 +163,6 @@ $(document).ready(function() {
 </script>
 
 <script src="{{ asset('js/temario.js') }}"></script>
-<script src="{{ asset('js/ejercicios.js') }}"></script>
+<!--<script src="{{ asset('js/ejercicios.js') }}"></script>-->
 </body>
 </html>

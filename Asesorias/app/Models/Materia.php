@@ -33,7 +33,6 @@ class Materia extends Model
         return $this->hasMany(EjeUnidad::class, 'id_materia');
     }
 
-
     public function descripcion()
     {
         return $this->hasOne(\App\Models\DescripcionMateria::class, 'id_materia');

@@ -61,20 +61,7 @@ $foto_usuario = $usuario_foto ?? asset('img/default.jpeg');
 </nav>
 
 <!-- Chatbot Sidebar -->
-<div id="chatbotSidebar" role="dialog" aria-modal="true" aria-labelledby="chatbotTitle" style="
-    position: fixed;
-    top: 0;
-    right: -350px;
-    width: 350px;
-    height: 100vh;
-    background-color: #f9f9f9;
-    box-shadow: -3px 0 8px rgba(0,0,0,0.2);
-    transition: right 0.3s ease;
-    z-index: 1050;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-">
+<div id="chatbotSidebar" role="dialog" aria-modal="true" aria-labelledby="chatbotTitle">
     <header style="padding: 15px; background-color: #541469; color: white; font-size: 20px; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
         <span id="chatbotTitle">ChatBot</span>
         <button id="closeChatbot" aria-label="Cerrar chatbot" style="background: none; border: none; color: white; font-size: 28px; cursor: pointer; line-height: 1;">&times;</button>

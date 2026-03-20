@@ -14,7 +14,7 @@
 
     <!-- Login -->
     <div class="contenedor-form login">
-    <img src="img/logotec.png" class="logo">
+    <img src="img/logo.png" class="logo">
         <h1>Bienvenido</h1>
         <h5>Inicia Sesión para continuar</h5>
         <form method="POST" action="{{ route('login') }}">

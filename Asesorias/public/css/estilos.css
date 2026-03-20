@@ -302,10 +302,145 @@ body {
     background: linear-gradient(90deg, #7c3aed, #9333ea);
 }
 
+#chatbotSidebar {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100vh;
+
+    /* 🔥 GLASS */
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border-left: 3px solid #7c3aed;
+
+    box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+
+    transition: right 0.3s ease;
+
+    z-index: 999999; /* 🔥 ARRIBA DE TODO */
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* CUANDO ESTÁ ABIERTO */
+#chatbotSidebar.active {
+    right: 0;
+}
+
+/* HEADER DEL CHAT */
+#chatbotSidebar header {
+    padding: 15px;
+    background: linear-gradient(90deg, #541469, #7c3aed);
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+/* CONTENIDO */
+#chatbotContent {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    /* 🔥 GLASS INTERIOR */
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* MENSAJES */
+#chatbotSidebar p {
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+/* USUARIO */
+#chatbotSidebar p.user-message {
+    background: linear-gradient(90deg, #7c3aed, #9333ea);
+    color: white;
+    align-self: flex-end;
+    box-shadow: 0 3px 10px rgba(124,58,237,0.4);
+}
+
+/* BOT */
+#chatbotSidebar p.bot-message {
+    background: rgba(255,255,255,0.9);
+    color: #111;
+    align-self: flex-start;
+}
+
+/* INPUT */
+#chatbotSidebar input {
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(8px);
+    color: white;
+    border: 1px solid rgba(124,58,237,0.5);
+    border-radius: 10px;
+}
+
+/* BOTÓN */
+#chatbotSidebar button {
+    background: linear-gradient(90deg, #7c3aed, #9333ea);
+    border: none;
+    transition: 0.3s;
+}
+
+#chatbotSidebar button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(124,58,237,0.6);
+}
+
 /* ================= FIX IMPORTANTE ================= */
 .container-fluid,
 .row,
 .col-md-9,
 .col-lg-10 {
     overflow: visible !important;
+}
+
+/* ================= MODAL TEXT FIX ================= */
+.modal .modal-title {
+    color: white;
+}
+
+.modal .form-control {
+    background-color: #020617;
+    color: white;
+    border: 1px solid rgba(124,58,237,0.4);
+}
+
+.modal .form-control::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+/* Esto arregla labels si algún día usas */
+.modal label {
+    color: white;
+}
+
+/* Cuando haces focus en el input */
+.modal .form-control:focus {
+    background-color: #020617;
+    color: white;
+    border-color: #a855f7;
+    box-shadow: 0 0 0 0.2rem rgba(124,58,237,0.25);
+}
+
+/* ================= BOTÓN CERRAR BLANCO ================= */
+.modal .btn-close {
+    filter: invert(1) brightness(2);
 }

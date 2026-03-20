@@ -11,14 +11,14 @@
 </head>
 <body>
 
-<header class="position-relative">
+<header class="position-fixed top-0 start-0 w-100">
     <div id="logo">
         <img src="{{ asset('img/tec.jpg') }}" alt="Logo" />
     </div>
 
-    <div class="bg-purple text-white py-3 shadow-sm">
+    <div class="bg-purple text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="m-4 fs-1">Asesorías Académicas</h1>
+            <h1 class="m-4 fs-1">Impulsa-Tec</h1>
             <nav>
                 <ul class="nav">
                     @php $nivel = session('usuario_nivel'); @endphp

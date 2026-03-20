@@ -9,14 +9,166 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <style>
-body { background: #f2f2f2; font-family: Arial, sans-serif;}
-.perfil-container { max-width: 450px; margin: 60px auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); text-align: center; }
-.foto-perfil { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0d6efd; position: relative; }
-.btn-subir-foto { position: absolute; bottom: 0; right: 0; background: #0d6efd; border-radius: 50%; width: 35px; height: 35px; border: none; color: white; cursor: pointer; font-size: 18px; }
-.input-nombre { margin-top: 20px; }
-.btn-actualizar { margin-top: 15px; width: 100%; }
-.btn-regresar { margin-top: 10px; width: 100%; }
-.foto-wrapper { position: relative; display: inline-block; }
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+}
+
+/* CONTENEDOR */
+.perfil-container {
+    max-width: 450px;
+    margin: 60px auto;
+
+    padding: 30px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255,255,255,0.1);
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+
+    text-align: center;
+
+    animation: fadeIn 0.5s ease;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TÍTULO */
+.perfil-container h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* FOTO */
+.foto-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.foto-perfil {
+    width: 140px;
+    height: 140px;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    border: 3px solid #7c3aed;
+
+    box-shadow: 0 0 25px rgba(124,58,237,0.8),
+                0 0 60px rgba(124,58,237,0.4);
+
+    transition: 0.3s;
+}
+
+.foto-perfil:hover {
+    transform: scale(1.05);
+}
+
+/* BOTÓN SUBIR FOTO */
+.btn-subir-foto {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+
+    background: linear-gradient(90deg, #7c3aed, #9333ea);
+    border-radius: 50%;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 18px;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 10px rgba(124,58,237,0.6);
+
+    transition: 0.3s;
+}
+
+.btn-subir-foto:hover {
+    transform: scale(1.1);
+}
+
+/* INPUT */
+.form-control {
+    background: rgba(2,6,23,0.8);
+    border: 1px solid rgba(124,58,237,0.4);
+
+    color: white;
+
+    border-radius: 12px;
+
+    padding: 10px;
+}
+
+.form-control::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.form-control:focus {
+    background: rgba(2,6,23,0.9);
+    color: white;
+
+    border-color: #a855f7;
+
+    box-shadow: 0 0 0 0.2rem rgba(124,58,237,0.25);
+}
+
+/* BOTONES */
+.btn-actualizar {
+    margin-top: 15px;
+    width: 100%;
+
+    background: linear-gradient(90deg, #7c3aed, #9333ea);
+    border: none;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.btn-actualizar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(124,58,237,0.5);
+}
+
+/* REGRESAR */
+.btn-regresar {
+    margin-top: 10px;
+    width: 100%;
+
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+/* TEXTO */
+.perfil-container p {
+    color: rgba(255,255,255,0.7);
+}
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>

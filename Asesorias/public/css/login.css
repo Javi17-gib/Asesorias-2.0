@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 *{
     font-family: 'Poppins', sans-serif;
@@ -8,100 +8,89 @@
 }
 
 :root{
-    --color-texto: #011627;
-    --color-fondo: #f8f9fa;
-    --color-primario: #0466c8;
-    --color-secundario: #d9d3d3;
-    --color-logo: #ff0000;
-    --fuente-grande: 3.0rem;
-    --fuente-p: 1rem;
+    --color-primario: #4b2e83;
+    --color-acento: #6c5ce7;
 }
 
+/* BODY CON IMAGEN + OVERLAY */
 body{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(../img/tec2.png);
+
+    background: linear-gradient(rgba(10,10,20,0.6), rgba(20,10,40,0.7)),
+                url(../img/tec2.png);
+
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
+/* CONTENEDOR GLASS */
 .fondo {
-    position: relative;
-    width: 400px;
-    min-height: 500px; /* subimos un poco la altura */
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .5);
-    border-radius: 20px;
-    backdrop-filter: blur(90px);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    width: 420px;
+    min-height: 520px;
+
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 16px;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* para que los formularios queden más arriba */
-    overflow: visible; /* cambiar de hidden a visible */
-    transition: transform .5s ease, height .2s ease;
-    padding-top: 20px; /* un poco de espacio arriba */
+    align-items: flex-start;
+
+    padding-top: 20px;
+    overflow: hidden;
 }
+
+/* FORM */
 .contenedor-form {
-    width: 90%;
+    width: 100%;
     padding: 20px 40px;
 }
 
-/* Formularios */
-.fondo .contenedor-form{
-    width: 100%;
-    padding: 20px;
-    transition: all .5s ease;
-}
+/* MOSTRAR / OCULTAR */
+.fondo .login { display: block; }
+.fondo .registrar { display: none; }
 
-/* Por defecto login visible, registro oculto */
-.fondo .login {
+.fondo.active .login { display: none; }
+.fondo.active .registrar { display: block; }
+
+/* LOGO */
+.logo{
     display: block;
-}
-.fondo .registrar {
-    display: none;
-}
-
-/* Cuando fondo tiene clase active, mostrar registro y ocultar login */
-.fondo.active .login {
-    display: none;
-}
-.fondo.active .registrar {
-    display: block;
+    margin: 0 auto;
+    height: 75px;
+    width: 280px;
 }
 
-.contenedor-form h2{
-    font-size: 2em;
-    color: #f8f9fa;
+/* TEXTOS */
+h1, h2 {
+    color: #ffffff;
     text-align: center;
+    font-weight: 600;
 }
 
+h5 {
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+/* INPUTS */
 .contenedor-input{
     position: relative;
     width: 100%;
     height: 50px;
-    border-bottom: 2px solid white;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
     margin: 20px 0;
-}
-
-.contenedor-input label{
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform:  translateY(-50%);
-    font-size: 1em;
-    font-weight: 600;
-    pointer-events: none;
-    transition: .4s;
-    color: #f8f9fa;
-}
-
-.contenedor-input input:focus~label,
-.contenedor-input input:valid~label,
-.contenedor-input select:focus~label,
-.contenedor-input select:valid~label{
-    top: -5px;
 }
 
 .contenedor-input input,
@@ -112,152 +101,137 @@ body{
     border: none;
     outline: none;
     font-size: 1em;
-    color: #f8f9fa;
+    color: #fff;
     padding: 0 35px 0 5px;
 }
 
+/* LABEL */
+.contenedor-input label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 0.95em;
+    color: rgba(255,255,255,0.85);
+    transition: .3s;
+}
+
+/* LABEL ANIMACIÓN */
+.contenedor-input input:focus ~ label,
+.contenedor-input input:valid ~ label,
+.contenedor-input select:focus ~ label{
+    top: -8px;
+    font-size: 0.8em;
+    color: #ffffff;
+}
+
+/* FOCUS */
+.contenedor-input input:focus,
+.contenedor-input select:focus {
+    border-bottom: 2px solid var(--color-acento);
+}
+
+/* ICONOS */
 .contenedor-input .icono{
     position:absolute;
     right: 8px;
-    font-size: 1.4em;
-    color: white;
-    line-height: 57px;
+    font-size: 1.3em;
+    color: rgba(255,255,255,0.8);
+    line-height: 50px;
 }
 
+/* SELECT */
+.contenedor-input select{
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.contenedor-input select option{
+    color: #000;
+}
+
+/* SELECT NIVEL (ESPACIADO CORREGIDO) */
+.select-nivel {
+    height: auto;
+    margin-bottom: 35px;
+}
+
+.select-nivel select {
+    height: 45px;
+    margin-top: 10px;
+}
+
+/* PIN */
+#pinDocente {
+    margin-top: 15px;
+}
+
+/* RECORDAR */
 .recordar{
-    font-size: .8em;
+    font-size: .85em;
     display: flex;
     justify-content: space-between;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: white;
-}
-
-.recordar label input{
-    accent-color: #090f1d;
-    margin-right: 3px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #fff;
 }
 
 .recordar a{
+    color: #9000ff;
     text-decoration: none;
-    color: blue;
 }
 
 .recordar a:hover{
     text-decoration: underline;
 }
 
-.btn{
+/* BOTÓN */
+.btn {
     width: 100%;
     height: 45px;
     border: none;
-    outline: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    background-color: #090f1d;
-    color: #f8f9fa;
-    margin-bottom: 10px;
+    font-weight: 600;
+
+    background: linear-gradient(135deg, #4b2e83, #6c5ce7);
+    color: #fff;
+
+    transition: 0.3s;
 }
 
-.registrar {
-    font-size: .9em;
-    color: #f8f9fa;
-    text-align: center;
-    margin: 15px 0 0 0; /* que no se corte */
-    display: block; /* asegurarse que sea visible */
-    position: relative;
-    z-index: 2;
-}
-.registrar-link{
-    color: blue;
-}
-.login-link{
-    color: blue;
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(108, 92, 231, 0.6);
 }
 
-.registrar p a:hover{
-    text-decoration: underline;
-}
-
-/* Estilo para select de nivel */
-.contenedor-input select{
-    color: #f8f9fa;
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 5px;
-    padding-left: 5px;
-}
-
-.contenedor-input select option{
-    color: #000; /* texto de opciones negro para legibilidad */
-}
-
-.contenedor-input select {
-    margin-bottom: 20px;
-}
+/* LINKS */
 .cambio-registro,
 .cambio-login {
     font-size: .9em;
-    color: #f8f9fa;
     text-align: center;
     margin-top: 15px;
-    display: block;
+    color: #fff;
 }
 
-.cambio-registro p a:hover,
-.cambio-login p a:hover {
+.cambio-registro a,
+.cambio-login a {
+    color: #c77dff;
+    font-weight: 600;
+}
+
+.cambio-registro a:hover,
+.cambio-login a:hover {
     text-decoration: underline;
 }
-/* Ajuste especial para el contenedor del select */
-.select-nivel {
-    height: auto;
-    margin-bottom: 20px;
-    padding-top: 10px;
-    position: relative;
-}
 
-.select-nivel label {
-    position: absolute;
-    top: -15px;
-    left: 5px;
-    font-size: 0.9em;
-    font-weight: 600;
-    color: #f8f9fa;
-}
+/* RESPONSIVE */
+@media (max-width: 500px){
+    .fondo{
+        width: 95%;
+    }
 
-.select-nivel select {
-    height: 40px;
-    padding-left: 10px;
-    margin-top: 5px;
-}
-.imagen-fija-container {
-    width: 100%; /* ocupa todo el ancho del col */
-    height: 250px; /* altura fija */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background-color: #f8f9fa; /* color de fondo opcional */
-}
-
-.imagen-fija {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover; /* ajusta la imagen al contenedor sin deformarla */
-}
-h1{
-    color: white;
-    text-align: center;
-}
-h5{
-  color: white;
-    text-align: center; 
-    font-size: 1.2rem; 
-}
-.logo{
-    display: block;
-    margin: 0 auto;
-    height: 75px;
-    width: 280px;
+    .contenedor-form{
+        padding: 20px;
+    }
 }

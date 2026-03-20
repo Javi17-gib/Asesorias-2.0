@@ -14,44 +14,51 @@ if($usuario_id){
 $foto_usuario = $usuario_foto ?? asset('img/default.jpeg');
 @endphp
 
-<header class="position-relative bg-purple-700 p-2" style="background-color:#541469;">
-    <!-- Título centrado -->
-    <h1 style="font-family: 'Times New Roman', serif; font-size:60px; color:white;" 
-        class="position-absolute top-50 start-50 translate-middle mb-0">
-        {{ $materia->nombre ?? 'Materia' }}
-    </h1>
+<header class="header-pro">
 
-    <!-- Perfil de usuario a la derecha -->
-    <div class="d-flex align-items-center position-relative" style="justify-content:flex-end; padding-right:20px;">
-        <img src="{{ $foto_usuario }}" alt="Usuario" class="rounded-circle me-2" style="width:40px; height:40px; object-fit:cover;">
+    <!-- IZQUIERDA -->
+    <div class="header-left">
+        <!-- Aquí puedes poner logo si quieres -->
+    </div>
+
+    <!-- CENTRO -->
+    <div class="header-center">
+        <h1>{{ $materia->nombre ?? 'Materia' }}</h1>
+    </div>
+
+    <!-- DERECHA (USUARIO) -->
+    <div class="header-right">
+        <img src="{{ $foto_usuario }}" class="user-img">
+
         <div class="dropdown">
-            <a class="btn btn-sm btn-outline-light dropdown-toggle" href="#" role="button" id="userDropdown"
-                data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-controls="userMenu">
+            <button class="btn btn-user dropdown-toggle" data-bs-toggle="dropdown">
                 {{ $usuario_nombre }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" id="userMenu">
-                <li><a href="{{ route('perfil') }}" class="dropdown-item"><i class="bi bi-person-fill"></i> Perfil</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a href="{{ route('logout') }}" class="dropdown-item"><i class="bi bi-box-arrow-in-left"></i> Cerrar Sesión</a></li>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end menu-user">
+                <li>
+                    <a href="{{ route('perfil') }}" class="dropdown-item">
+                        <i class="bi bi-person-fill"></i> Perfil
+                    </a>
+                </li>
+                <li><hr></li>
+                <li>
+                    <a href="{{ route('logout') }}" class="dropdown-item text-danger">
+                        <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 
-    <!-- Menú principal debajo del título -->
-    <nav class="mt-5">
-        <ul class="nav justify-content-center">
-            <li class="nav-item mx-5">
-                <a class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">Inicio</a>
-            </li>
-            <li class="nav-item mx-5">
-                <a class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">Preguntas</a>
-            </li>
-            <li class="nav-item mx-5">
-                <a id="openChatbot" class="nav-link" href="#" style="font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold; color:white;">ChatBot</a>
-            </li>
-        </ul>
-    </nav>
 </header>
+
+<!-- NAV -->
+<nav class="nav-pro">
+    <a href="#">Inicio</a>
+    <a href="#">Preguntas</a>
+    <a href="#" id="openChatbot">ChatBot</a>
+</nav>
 
 <!-- Chatbot Sidebar -->
 <div id="chatbotSidebar" role="dialog" aria-modal="true" aria-labelledby="chatbotTitle" style="

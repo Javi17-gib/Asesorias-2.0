@@ -35,7 +35,9 @@
       {{-- Descripción editable para docentes --}}
       @if($usuario_nivel === 'docente')
           <textarea id="descripcionSubtema">{!! $contenido?->contenido ?? 'Aquí puedes poner la descripción del subtema.' !!}</textarea>
-          <button id="guardarDescripcion" class="btn btn-primary mt-2 mb-4">Guardar descripción</button>
+          <button id="guardarDescripcionSubtema" class="btn btn-primary mt-2">
+            Guardar
+        </button>
           <div id="mensajeDescripcion" class="mt-2 text-success"></div>
       @else
           <div class="border p-3 rounded mb-4 text-center">
@@ -67,7 +69,7 @@ $(document).ready(function() {
     });
 
     // Guardar descripción
-    $('#guardarDescripcion').click(async function() {
+    $('#guardarDescripcionSubtema').click(async function() {
         const descripcion = $('#descripcionSubtema').summernote('code');
         const token = $('meta[name="csrf-token"]').attr('content');
         const id_subtema = "{{ $subtema->id }}";

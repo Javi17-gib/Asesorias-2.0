@@ -19,7 +19,7 @@ class AuthController extends Controller
             'nivel' => 'required|in:alumno,docente',
         ]);
          // 🔐 PIN FIJO DE DOCENTE
-    $PIN_DOCENTE = env('DOCENTE_PIN', '1234INCE');
+    $PIN_DOCENTE = env('DOCENTE_PIN', 'ITSNCG2026');
 
     if ($request->nivel === 'docente') {
         if ($request->pin_docente !== $PIN_DOCENTE) {

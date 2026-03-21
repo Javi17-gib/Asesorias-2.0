@@ -52,7 +52,7 @@ body {
 
     min-height: 80px;
 
-    z-index: 9999; /* 🔥 FIX */
+    z-index: 100; /* 🔥 FIX */
 }
 
 /* CENTRO */
@@ -245,7 +245,10 @@ body {
 /* ================= MODALES (FIX) ================= */
 .modal-dialog {
     margin-top: 80px; /* 🔥 separa del temario */
-    z-index: 10500;
+}
+
+.modal {
+    z-index: 3000 !important;
 }
 
 .modal-content {
@@ -272,6 +275,8 @@ body {
     overflow: hidden;
     border: 2px solid rgba(124,58,237,0.5) !important;
     box-shadow: 0 10px 30px rgba(124,58,237,0.3);
+    position: relative;
+    z-index: 2500 !important;
 }
 
 .note-toolbar {
@@ -443,4 +448,66 @@ body {
 /* ================= BOTÓN CERRAR BLANCO ================= */
 .modal .btn-close {
     filter: invert(1) brightness(2);
+}
+
+/* FIX SUMMERNOTE */
+.note-editor {
+    position: relative;
+    z-index: 2500 !important;
+}
+
+/* FIX MODALES */
+.modal {
+    z-index: 3000 !important;
+}
+
+/* FIX CHATBOT */
+#chatbotSidebar {
+    z-index: 1500;
+}
+
+.note-modal-backdrop {
+    z-index: 199999 !important;
+}
+
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.modal {
+    z-index: 1050 !important;
+}
+
+.modal-backdrop.show {
+    opacity: 0.1 !important; /* 🔥 menos oscuro */
+    pointer-events: none !important;
+}
+
+#ejerciciosApp {
+    background: linear-gradient(180deg, #711092, #020617);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 15px 40px rgba(124,58,237,0.4);
+    border: 1px solid rgba(124,58,237,0.3);
+
+    overflow: visible !important;
+}
+
+#ejerciciosApp h5 {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#ejerciciosApp .btn-light {
+    background: #334155;
+    color: white;
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+}
+
+#ejerciciosApp .btn-light:hover {
+    background: linear-gradient(90deg, #7c3aed, #9333ea);
+    box-shadow: 0 0 15px rgba(124,58,237,0.6);
 }

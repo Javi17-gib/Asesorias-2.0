@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ $subtema->nombre ?? 'Subtema' }}</title>
+<title>{{ $ejercicio->nombre ?? 'Ejercicio' }}</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
@@ -19,32 +19,43 @@
 
 <div class="container-fluid">
   <div class="row">
+
     {{-- Aside con temas --}}
     <aside class="col-md-3 col-lg-2 mt-2">
-      @include('layouts.temas', ['usuario_nivel' => $usuario_nivel, 'materia' => $materia ?? null])
+      @include('layouts.temas', [
+          'usuario_nivel' => $usuario_nivel,
+          'materia' => $materia ?? null
+      ])
+
       @include('layouts.ejercicios', ['usuario_nivel' => $usuario_nivel,'materia' => $materia])
     </aside>
 
     {{-- Contenido principal --}}
     <main class="col-md-9 col-lg-10 mt-2">
-      <h1 class="fw-bold text-center">{{ $subtema->nombre }}</h1>
 
-      @php
-          $contenido = $subtema->contenidos->first();
-      @endphp
+      <h1 class="fw-bold text-center">{{ $ejercicio->nombre }}</h1>
 
-      {{-- Descripción editable para docentes --}}
+      {{-- CONTENIDO --}}
       @if($usuario_nivel === 'docente')
-          <textarea id="descripcionSubtema">{!! $contenido?->contenido ?? 'Aquí puedes poner la descripción del subtema.' !!}</textarea>
-          <button id="guardarDescripcionSubtema" class="btn btn-primary mt-2">
-            Guardar
-        </button>
-          <div id="mensajeDescripcion" class="mt-2 text-success"></div>
+
+          <textarea id="descripcionEjercicio">
+              {!! $ejercicio->contenido ?? 'Aquí puedes escribir el ejercicio completo...' !!}
+          </textarea>
+
+          <button id="guardarEjercicio" class="btn btn-primary mt-2">
+              Guardar
+          </button>
+
+          <div id="mensajeEjercicio" class="mt-2 text-success"></div>
+
       @else
+
           <div class="border p-3 rounded mb-4 text-center">
-              {!! $contenido?->contenido ?? 'Aquí puedes poner la descripción del subtema.' !!}
+              {!! $ejercicio->contenido ?? 'Sin contenido aún.' !!}
           </div>
+
       @endif
+
     </main>
   </div>
 </div>
@@ -56,42 +67,51 @@
 <script>
 @if($usuario_nivel === 'docente')
 $(document).ready(function() {
-    // Inicializar Summernote
-    $('#descripcionSubtema').summernote({
-        height: 250,
-        placeholder: 'Escribe la descripción del subtema aquí...',
+
+    $('#descripcionEjercicio').summernote({
+        height: 300,
+        placeholder: 'Escribe el ejercicio aquí...',
         toolbar: [
             ['style', ['bold', 'italic', 'underline', 'clear']],
             ['font', ['strikethrough', 'superscript', 'subscript']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
+            ['view', ['fullscreen', 'codeview']]
         ]
     });
 
-    // Guardar descripción
-    $('#guardarDescripcionSubtema').click(async function() {
-        const descripcion = $('#descripcionSubtema').summernote('code');
+    $('#guardarEjercicio').click(async function() {
+
+        const contenido = $('#descripcionEjercicio').summernote('code');
         const token = $('meta[name="csrf-token"]').attr('content');
-        const id_subtema = "{{ $subtema->id }}";
+        const id = "{{ $ejercicio->id }}";
+
+        let formData = new FormData();
+        formData.append('_method', 'PUT');
+        formData.append('contenido', contenido);
 
         try {
-            const res = await fetch("{{ route('subtemas.descripcion.store') }}", {
+
+            const res = await fetch(`/ejercicios/${id}`, {
                 method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': token 
+                headers: {
+                    'X-CSRF-TOKEN': token
                 },
-                body: JSON.stringify({ id_subtema, descripcion })
+                body: formData
             });
 
             const data = await res.json();
-            $('#mensajeDescripcion').text(data.success ? 'Descripción guardada correctamente' : data.mensaje || 'Error al guardar');
-        } catch(e) {
+
+            $('#mensajeEjercicio').text(
+                data.success ? 'Guardado correctamente ✔' : data.mensaje
+            );
+
+        } catch (e) {
             console.error(e);
-            $('#mensajeDescripcion').text('Error en la petición');
+            $('#mensajeEjercicio').text('Error en la petición');
         }
     });
+
 });
 @endif
 </script>

@@ -25,6 +25,11 @@ class EjeUnidad extends Model
     {
         return $this->hasMany(EjeSubtema::class, 'id_unidad');
     }
+
+    public function ejercicios()
+    {
+        return $this->hasMany(Ejercicio::class, 'id_eje_unidad');
+    }
 }
 
 

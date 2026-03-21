@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+    
     // ---------------------- VARIABLES ----------------------
     const modalUnidad = new bootstrap.Modal(document.getElementById("modalUnidad"));
     const modalSubtema = new bootstrap.Modal(document.getElementById("modalSubtema"));
@@ -17,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatbotInput = document.getElementById('chatbotInput');
     const chatbotForm = document.getElementById('chatbotForm');
 
+    
     // ---------------------- COLA DE MENSAJES ----------------------
     const messageQueue = [];
     let processingQueue = false;
@@ -30,27 +33,38 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const res = await fetch(chatbotUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken },
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json' // Forzamos a Laravel a responder en JSON
+                },
                 body: JSON.stringify({ message })
             });
+
+            // Verificamos si la respuesta es exitosa antes de intentar convertir a JSON
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({})); 
+                throw new Error(errorData.error_detail || errorData.reply || `Error del servidor (${res.status})`);
+            }
 
             const data = await res.json();
             typingElem.remove();
 
             if (data && data.reply) {
                 addMessage(data.reply, 'bot');
-            } else if (data && data.error) {
-                addMessage(data.error, 'bot');
             } else {
-                addMessage('Lo siento, no pude procesar tu mensaje.', 'bot');
+                addMessage('Lo siento, recibí una respuesta vacía.', 'bot');
             }
+
         } catch (err) {
-            typingElem.remove();
-            addMessage('Error al conectarse con el servidor.', 'bot');
-            console.error(err);
+            if (typingElem) typingElem.remove();
+            // Mostramos el mensaje de error real para saber qué está pasando
+            addMessage('Error: ' + err.message, 'bot');
+            console.error("Detalle del error:", err);
         } finally {
             processingQueue = false;
-            processQueue();
+            // Pequeño delay para no saturar
+            setTimeout(() => processQueue(), 100);
         }
     }
 

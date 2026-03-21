@@ -26,6 +26,9 @@
     <!-- ASIDE -->
     <aside class="col-md-3 col-lg-2 mt-2 sidebar">
       @include('layouts.temas', ['usuario_nivel' => $usuario_nivel, 'materia' => $materia])
+
+      @include('layouts.ejercicios', ['usuario_nivel' => $usuario_nivel,'materia' => $materia])
+      
     </aside>
 
     <!-- MAIN -->
@@ -54,32 +57,6 @@
           </div>
         @endif
 
-      </div>
-
-      {{-- IMÁGENES --}}
-      <div class="row mt-5">
-        @php
-          $imagenes = $materia->imagenes ?? collect();
-          for ($i = $imagenes->count(); $i < 2; $i++) {
-              $imagenes->push(null);
-          }
-        @endphp
-
-        @for($i = 0; $i < 2; $i++)
-          <div class="col-md-6 text-center mb-3">
-            <img src="{{ $imagenes[$i]?->ruta ? asset($imagenes[$i]->ruta) : asset('img/logo.webp') }}"
-                 class="img-fluid rounded shadow imagen-pro"
-                 alt="Imagen {{ $i + 1 }}">
-
-            @if($usuario_nivel === 'docente')
-              <form class="mt-2 imagen-form" enctype="multipart/form-data" data-index="{{ $i }}">
-                <input type="file" name="imagen" class="form-control">
-                <button type="submit" class="btn btn-primary btn-sm mt-2">Subir</button>
-              </form>
-              <div class="text-success mt-1 mensaje-imagen"></div>
-            @endif
-          </div>
-        @endfor
       </div>
 
     </main>
@@ -138,6 +115,12 @@ $(document).ready(function() {
 </script>
 
 <script src="{{ asset('js/temario.js') }}"></script>
+<script src="{{ asset('js/ejercicios.js') }}"></script>
+<script>
+$(document).on('shown.bs.modal', function () {
+    $('.modal-backdrop').appendTo('body');
+});
+</script>
 
 </body>
 </html>

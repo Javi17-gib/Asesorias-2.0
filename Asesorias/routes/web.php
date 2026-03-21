@@ -118,3 +118,8 @@ Route::post('/perfil/actualizar', [PerfilController::class, 'actualizar'])->name
 Route::post('/ejercicios', [EjercicioController::class, 'store']);
 Route::put('/ejercicios/{ejercicio}', [EjercicioController::class, 'update']);
 Route::delete('/ejercicios/{ejercicio}', [EjercicioController::class, 'destroy']);
+
+Route::post('/materia/{materia}/eje-unidad', [EjeUnidadController::class, 'store']);
+Route::put('/eje-unidad/{id}', [EjeUnidadController::class, 'update']);
+Route::delete('/eje-unidad/{id}', [EjeUnidadController::class, 'destroy']);
+Route::get('/ejercicio/{id}', [EjercicioController::class, 'show']);

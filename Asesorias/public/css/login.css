@@ -177,7 +177,8 @@ h5 {
 }
 
 .recordar a{
-    color: #9000ff;
+    color: #310056;
+    font-weight: 600;
     text-decoration: none;
 }
 
@@ -216,7 +217,7 @@ h5 {
 
 .cambio-registro a,
 .cambio-login a {
-    color: #c77dff;
+    color: #310056;
     font-weight: 600;
 }
 

@@ -18,7 +18,10 @@
 
     <div class="bg-purple text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="m-4 fs-1">Impulsa-Tec</h1>
+            <div class="titulo-header">
+    <h1>Aprendiendo con</h1>
+    <img src="{{ asset('img/Bufalin.png') }}" alt="Bufalín" class="mascota-header">
+</div>
             <nav>
                 <ul class="nav">
                     @php $nivel = session('usuario_nivel'); @endphp

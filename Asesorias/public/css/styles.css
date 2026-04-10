@@ -127,6 +127,31 @@ body {
     padding-top: 150px;
 }
 
+/* ===== TÍTULO CON MASCOTA ===== */
+.titulo-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* espacio pequeñito */
+    margin: 0 auto; /* centra todo */
+}
+
+.titulo-header h1 {
+    color: #fff;
+    font-weight: 900;
+    font-size: 2.6rem;
+    margin: 0;
+    white-space: nowrap;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.mascota-header {
+    height: 95px;
+    width: auto;
+    object-fit: contain;
+    margin-left: 5px; /* lo pega más al texto */
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
 
@@ -145,4 +170,15 @@ body {
     .btn-outline-light {
         font-size: 1rem;
     }
+    .titulo-header {
+    gap: 10px;
+}
+
+.titulo-header h1 {
+    font-size: 1.6rem;
+}
+
+.mascota-header {
+    height: 60px;
+}
 }

@@ -33,30 +33,70 @@
     {{-- Contenido principal --}}
     <main class="col-md-9 col-lg-10 mt-2">
 
-      <h1 class="fw-bold text-center">{{ $ejercicio->nombre }}</h1>
+  <div class="glass p-4">
 
-      {{-- CONTENIDO --}}
-      @if($usuario_nivel === 'docente')
+    <h1 class="fw-bold text-center mb-4 titulo-principal">
+      {{ $ejercicio->nombre }}
+    </h1>
 
-          <textarea id="descripcionEjercicio">
-              {!! $ejercicio->contenido ?? 'Aquí puedes escribir el ejercicio completo...' !!}
-          </textarea>
+    {{-- ================= CONTENIDO ================= --}}
+    @if($usuario_nivel === 'docente')
 
-          <button id="guardarEjercicio" class="btn btn-primary mt-2">
-              Guardar
-          </button>
+        <h5 class="mb-2">Ejercicio</h5>
 
-          <div id="mensajeEjercicio" class="mt-2 text-success"></div>
+        <textarea id="descripcionEjercicio">
+            {!! $ejercicio->contenido ?? 'Aquí puedes escribir el ejercicio completo...' !!}
+        </textarea>
 
-      @else
+        <button id="guardarEjercicio" class="btn btn-primary mt-2 w-100">
+            💾 Guardar ejercicio
+        </button>
 
-          <div class="border p-3 rounded mb-4 text-center">
-              {!! $ejercicio->contenido ?? 'Sin contenido aún.' !!}
-          </div>
+        <div id="mensajeEjercicio" class="mt-2 text-success"></div>
 
-      @endif
+        <hr class="my-4">
 
-    </main>
+        {{-- ================= SOLUCIÓN ================= --}}
+        <h5 class="mb-2">Solución</h5>
+
+        <textarea id="solucionEjercicio">
+            {!! $ejercicio->solucion ?? 'Aquí puedes escribir la solución...' !!}
+        </textarea>
+
+        <div class="d-flex gap-2 mt-2">
+            <button id="guardarSolucion" class="btn btn-success w-100">
+                💾 Guardar solución
+            </button>
+
+            <button id="toggleSolucion" class="btn btn-warning w-100">
+                👁 {{ $ejercicio->mostrar_solucion ? 'Ocultar' : 'Mostrar' }}
+            </button>
+        </div>
+
+    @else
+
+        <div class="glass p-3 mb-4">
+            {!! $ejercicio->contenido ?? 'Sin contenido aún.' !!}
+        </div>
+
+        {{-- SOLO SI EL DOCENTE LO ACTIVA --}}
+        @if($ejercicio->mostrar_solucion)
+
+            <button class="btn btn-info w-100 mb-3" onclick="toggleSolucion()">
+                Ver solución 👀
+            </button>
+
+            <div id="solucionBox" class="glass p-3 d-none">
+                {!! $ejercicio->solucion !!}
+            </div>
+
+        @endif
+
+    @endif
+
+  </div>
+
+</main>
   </div>
 </div>
 
@@ -114,6 +154,68 @@ $(document).ready(function() {
 
 });
 @endif
+</script>
+
+<script>
+@if($usuario_nivel === 'docente')
+
+$(document).ready(function() {
+
+    // SUMMERNOTE SOLUCIÓN
+    $('#solucionEjercicio').summernote({
+        height: 250,
+        placeholder: 'Escribe la solución aquí...'
+    });
+
+    // GUARDAR SOLUCIÓN
+    $('#guardarSolucion').click(async function(){
+
+        const contenido = $('#solucionEjercicio').summernote('code');
+        const token = $('meta[name="csrf-token"]').attr('content');
+        const id = "{{ $ejercicio->id }}";
+
+        let formData = new FormData();
+        formData.append('solucion', contenido);
+        formData.append('solucion', contenido.trim());
+
+        try {
+            await fetch(`/ejercicios/${id}/solucion`, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': token },
+                body: formData
+            });
+
+            alert("Solución guardada 🔥");
+
+        } catch (e) {
+            console.error(e);
+            alert("Error al guardar solución");
+        }
+
+    });
+
+    // TOGGLE MOSTRAR/OCULTAR
+    $('#toggleSolucion').click(async function(){
+
+        const token = $('meta[name="csrf-token"]').attr('content');
+        const id = "{{ $ejercicio->id }}";
+
+        await fetch(`/ejercicios/${id}/toggle-solucion`, {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': token }
+        });
+
+        location.reload();
+    });
+
+});
+
+@endif
+
+// ALUMNO
+function toggleSolucion(){
+    document.getElementById('solucionBox').classList.toggle('d-none');
+}
 </script>
 
 </body>

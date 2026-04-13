@@ -9,10 +9,12 @@ class Ejercicio extends Model
     protected $table = 'ejercicios';
 
     protected $fillable = [
-        'nombre',
-        'id_eje_unidad',
-        'contenido'
-    ];
+    'nombre',
+    'id_eje_unidad',
+    'contenido',
+    'solucion',
+    'mostrar_solucion'
+];
 
     public function unidad()
     {

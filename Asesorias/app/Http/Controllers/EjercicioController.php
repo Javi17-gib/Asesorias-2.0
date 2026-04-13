@@ -72,5 +72,24 @@ class EjercicioController extends Controller
 
     return view('ejercicio.show', compact('ejercicio', 'materia', 'usuario_nivel'));
 }
+
+public function guardarSolucion(Request $request, $id){
+
+    $ejercicio = Ejercicio::findOrFail($id);
+
+    $ejercicio->solucion = $request->input('solucion'); // 🔥 CAMBIO CLAVE
+
+    $ejercicio->save();
+
+    return response()->json(['success'=>true]);
+}
+
+public function toggleSolucion($id){
+    $ejercicio = Ejercicio::findOrFail($id);
+    $ejercicio->mostrar_solucion = !$ejercicio->mostrar_solucion;
+    $ejercicio->save();
+
+    return response()->json(['success'=>true]);
+}
     
 }

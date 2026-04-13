@@ -511,3 +511,32 @@ body {
     background: linear-gradient(90deg, #7c3aed, #9333ea);
     box-shadow: 0 0 15px rgba(124,58,237,0.6);
 }
+
+.titulo-principal{
+    font-size: 42px;
+    text-shadow: 0 0 25px rgba(168,85,247,0.9);
+}
+
+.glass{
+    transition: 0.3s;
+}
+
+.glass:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(124,58,237,0.5);
+}
+
+.btn{
+    border-radius: 12px !important;
+    font-weight: 600;
+}
+
+.btn:hover{
+    transform: scale(1.03);
+}
+
+.btn-info{
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    border: none;
+}
+

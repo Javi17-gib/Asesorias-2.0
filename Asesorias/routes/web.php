@@ -123,3 +123,8 @@ Route::post('/materia/{materia}/eje-unidad', [EjeUnidadController::class, 'store
 Route::put('/eje-unidad/{id}', [EjeUnidadController::class, 'update']);
 Route::delete('/eje-unidad/{id}', [EjeUnidadController::class, 'destroy']);
 Route::get('/ejercicio/{id}', [EjercicioController::class, 'show']);
+
+
+
+Route::post('/ejercicios/{id}/solucion', [EjercicioController::class, 'guardarSolucion']);
+Route::post('/ejercicios/{id}/toggle-solucion', [EjercicioController::class, 'toggleSolucion']);
